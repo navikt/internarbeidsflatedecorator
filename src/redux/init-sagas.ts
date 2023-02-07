@@ -15,8 +15,10 @@ import { getContextvalueValue, RESET_VALUE } from './utils';
 import log from './../utils/logging';
 import { leggTilFeilmelding } from './feilmeldinger/reducer';
 import { PredefiniertFeilmeldinger } from './feilmeldinger/domain';
+import Logger from '../utils/Logger';
 
 function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksbehandler>) {
+    Logger.log('Initialize store');
     const fnr: FnrContextvalueState = MaybeCls.of(props.fnr)
         .map((config) => {
             return {
@@ -33,6 +35,8 @@ function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksb
             };
         })
         .withDefault({ enabled: false });
+
+    Logger.log('Initialize store FNR', fnr);
 
     const enhet: EnhetContextvalueState = MaybeCls.of(props.enhet)
         .map((config) => {
@@ -72,16 +76,20 @@ function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksb
         }
     };
 
+    Logger.log('Initialized state', state);
+
     yield put({ type: ReduxActionTypes.INITIALIZE, data: state });
 }
 
 function* initDekoratorData(props: ApplicationProps) {
+    Logger.log('Init dekorator data', props);
     Api.setAccessToken(props.accessToken);
     if (props.useProxy) {
         Api.setUseProxy(props.useProxy);
     }
 
     const response: FetchResponse<Saksbehandler> = yield call(Api.hentSaksbehandlerData);
+    Logger.log('Saksbehandler data', response.data);
     if (hasError(response)) {
         yield put(leggTilFeilmelding(PredefiniertFeilmeldinger.HENT_SAKSBEHANDLER_DATA_FEILET));
         yield call(initializeStore, props, MaybeCls.nothing());
@@ -93,10 +101,11 @@ function* initDekoratorData(props: ApplicationProps) {
 }
 
 export function* initSaga(): IterableIterator<any> {
+    Logger.log('Init saga');
     log.time('initSaga');
     const action: { data: ApplicationProps } = yield take(SagaActionTypes.INIT);
     const props = action.data;
-
+    Logger.log(props);
     log.time('init');
     yield call(initDekoratorData, props);
     log.timeEnd('init');

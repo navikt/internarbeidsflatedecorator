@@ -4,6 +4,7 @@ import { finnMiljoStreng, hentMiljoFraUrl, UrlFormat } from '../utils/url-utils'
 import { AktivBruker, AktivEnhet, AktorIdResponse, Saksbehandler } from '../internal-domain';
 import failureConfig from './../mock/mock-error-config';
 import { ProxyConfig } from '../domain';
+import Logger from '../utils/Logger';
 
 export enum ContextApiType {
     NY_AKTIV_ENHET = 'NY_AKTIV_ENHET',
@@ -159,6 +160,7 @@ export function logError(message: string, extra: { [key: string]: string }) {
 }
 
 export function oppdaterAktivBruker(fnr: string | null | undefined) {
+    Logger.log(`Oppdater aktiv bruker til fnr: ${fnr}`);
     return postJson(urls.contextUrl, {
         verdi: fnr,
         eventType: ContextApiType.NY_AKTIV_BRUKER
@@ -181,6 +183,7 @@ export function nullstillAktivEnhet() {
 }
 
 export function hentAktivBruker(): Promise<FetchResponse<AktivBruker>> {
+    Logger.log('Hent aktiv bruker start');
     return getJson<AktivBruker>(urls.aktivBrukerUrl);
 }
 

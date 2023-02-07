@@ -15,12 +15,16 @@ import { useOnMount } from './hooks/use-on-mount';
 import { useOnChanged } from './hooks/use-on-changed';
 import { getContextvalueValue, isContextvalueControlled, RESET_VALUE } from './redux/utils';
 import { DecoratorHotkeysProvider } from './components/hurtigtaster/hurtigtaster';
+import Logger from './utils/Logger';
 
 function Application(props: ApplicationProps) {
     const dispatch = useDispatch<Dispatch<SagaActions>>();
     const isFnrControlled = useRef(isContextvalueControlled(props.fnr));
     const isEnhetControlled = useRef(isContextvalueControlled(props.enhet));
+
     useOnMount(() => {
+        if (!props.enableLogging) Logger.disableLogger();
+        Logger.log('***** STARTING LOGGING OF DECORATOR *****');
         dispatch({ type: SagaActionTypes.INIT, data: props });
     });
 

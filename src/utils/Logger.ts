@@ -7,7 +7,7 @@ class Logger {
 
     readonly log = (...message: any[]) => {
         if (!this.isEnabled) return;
-        console.log(message);
+        console.log(...message);
     };
 }
 

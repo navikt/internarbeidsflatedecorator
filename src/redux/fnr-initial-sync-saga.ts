@@ -18,7 +18,7 @@ import { PredefiniertFeilmeldinger } from './feilmeldinger/domain';
 import Logger from '../utils/Logger';
 
 export default function* initialSyncFnr(props: FnrContextvalue) {
-    Logger.log('Initial sync fnr', props);
+    Logger.log('Initial sync fnr: ', props);
     if (getContextvalueValue(props) === RESET_VALUE) {
         Logger.log('Initial sync fnr: Reset value');
         yield callApiWithErrorhandling(
@@ -28,7 +28,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
     }
 
     const response: FetchResponse<AktivBruker> = yield call(Api.hentAktivBruker);
-    Logger.log('Hent aktiv bruker slutt ', response.data);
+    Logger.log('Hent aktiv bruker slutt: ', response.data);
     const onsketFnr = MaybeCls.of(getContextvalueValue(props))
         .map((fnr) => (fnr === RESET_VALUE ? '' : fnr))
         .map((fnr) => fnr.trim())
@@ -67,7 +67,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
                 onsketFnr.withDefault('')
             );
         }
-        Logger.log(`Oppdater fnr value til: ${onsketFnr}`);
+        Logger.log('Oppdater fnr value til: ', onsketFnr);
         yield* updateFnrValue(onsketFnr);
         Logger.log(`Kaller onChange`);
         yield spawnConditionally(props.onChange, onsketFnr.withDefault(''));
@@ -78,7 +78,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
         Logger.log(`Kaller onChange`);
         yield spawnConditionally(props.onChange, contextholderFnr.withDefault(''));
     } else {
-        Logger.log(`Oppdaterer fnr til onskerFnr: ${onsketFnr}`);
+        Logger.log('Oppdaterer fnr til onskerFnr: ', onsketFnr);
         yield* updateFnrValue(onsketFnr);
     }
 }

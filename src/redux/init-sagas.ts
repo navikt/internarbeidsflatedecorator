@@ -36,7 +36,7 @@ function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksb
         })
         .withDefault({ enabled: false });
 
-    Logger.log('Initialize store FNR', fnr);
+    Logger.log('Initialize store FNR: ', fnr);
 
     const enhet: EnhetContextvalueState = MaybeCls.of(props.enhet)
         .map((config) => {
@@ -76,20 +76,20 @@ function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksb
         }
     };
 
-    Logger.log('Initialized state', state);
+    Logger.log('Initialized state: ', state);
 
     yield put({ type: ReduxActionTypes.INITIALIZE, data: state });
 }
 
 function* initDekoratorData(props: ApplicationProps) {
-    Logger.log('Init dekorator data', props);
+    Logger.log('Init dekorator data: ', props);
     Api.setAccessToken(props.accessToken);
     if (props.useProxy) {
         Api.setUseProxy(props.useProxy);
     }
 
     const response: FetchResponse<Saksbehandler> = yield call(Api.hentSaksbehandlerData);
-    Logger.log('Saksbehandler data', response.data);
+    Logger.log('Saksbehandler data: ', response.data);
     if (hasError(response)) {
         yield put(leggTilFeilmelding(PredefiniertFeilmeldinger.HENT_SAKSBEHANDLER_DATA_FEILET));
         yield call(initializeStore, props, MaybeCls.nothing());

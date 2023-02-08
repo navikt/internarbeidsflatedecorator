@@ -46,7 +46,7 @@ export function* hentAktorId() {
 }
 
 export function* updateFnrValue(onsketFnr: MaybeCls<string>) {
-    Logger.log('Oppdaterer fnr til ', onsketFnr);
+    Logger.log('Oppdaterer fnr til ', onsketFnr.withDefault(''));
     yield* updateFnrState({
         value: onsketFnr
     });
@@ -137,7 +137,7 @@ export function* updateFnr(action: FnrSubmit | FnrReset) {
             yield spawn(props.onChange, null);
         } else {
             const fnr = MaybeCls.of(action.data).filter((v) => v.length > 0);
-            Logger.log('Oppdaterer fnr til: ', fnr);
+            Logger.log('Oppdaterer fnr til: ', fnr.withDefault(''));
             if (fnr.isNothing()) {
                 Logger.log(`Fnr var null, nullstiller kontekst.`);
                 yield forkApiWithErrorhandling(
@@ -145,7 +145,7 @@ export function* updateFnr(action: FnrSubmit | FnrReset) {
                     Api.nullstillAktivBruker
                 );
             } else {
-                Logger.log('Oppdaterer kontekst til fnr: ', fnr);
+                Logger.log('Oppdaterer kontekst til fnr: ', fnr.withDefault(''));
                 yield forkApiWithErrorhandling(
                     PredefiniertFeilmeldinger.OPPDATER_BRUKER_CONTEXT_FEILET,
                     Api.oppdaterAktivBruker,
@@ -154,7 +154,7 @@ export function* updateFnr(action: FnrSubmit | FnrReset) {
             }
 
             yield* updateFnrValue(fnr);
-            Logger.log('Kaller onChange med fnr: ', fnr);
+            Logger.log('Kaller onChange med fnr: ', fnr.withDefault(''));
             yield spawn(props.onChange, fnr.withDefault(''));
         }
     }

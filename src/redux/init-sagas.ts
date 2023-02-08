@@ -1,7 +1,12 @@
 import { all, call, fork, put, take, takeLatest } from 'redux-saga/effects';
 import { MaybeCls } from '@nutgaard/maybe-ts';
 import { ApplicationProps, FnrDisplay } from '../domain';
-import { EnhetContextvalueState, FnrContextvalueState, Saksbehandler } from '../internal-domain';
+import {
+    ContextvalueStateEnabled,
+    EnhetContextvalueState,
+    FnrContextvalueState,
+    Saksbehandler
+} from '../internal-domain';
 import { ReduxActionTypes, SagaActionTypes } from './actions';
 import * as Api from './api';
 import { FetchResponse, hasError } from './api';
@@ -36,7 +41,10 @@ function* initializeStore(props: ApplicationProps, saksbehandler: MaybeCls<Saksb
         })
         .withDefault({ enabled: false });
 
-    Logger.log('Initialize store FNR: ', fnr);
+    Logger.log(
+        'Initialize store FNR: ',
+        (fnr as ContextvalueStateEnabled<any>).value.withDefault('')
+    );
 
     const enhet: EnhetContextvalueState = MaybeCls.of(props.enhet)
         .map((config) => {

@@ -39,9 +39,10 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
         .map((fnr) => fnr.trim())
         .filter((fnr) => fnr.length > 0);
 
-    Logger.log(
-        `Onsket fnr ${onsketFnr}, feil fnr ${feilFnr}, contextHolderFnr ${contextholderFnr}`
-    );
+    Logger.log('Onsket fnr: ', onsketFnr.withDefault(''));
+    Logger.log('FeilFnr fnr: ', feilFnr.withDefault(''));
+    Logger.log('Contextholder fnr: ', contextholderFnr.withDefault(''));
+
     if (hasError(response)) {
         yield put(leggTilFeilmelding(PredefiniertFeilmeldinger.HENT_BRUKER_CONTEXT_FEILET));
     }
@@ -57,7 +58,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
             onsketFnr.withDefault('') !== contextholderFnr.withDefault('');
         if (erUlikContextholderFnr) {
             Logger.log(
-                `Er ulik context holder fnr, ${onsketFnr.withDefault(
+                `Er ulik context holder fnr: ${onsketFnr.withDefault(
                     ''
                 )} vs ${contextholderFnr.withDefault('')}`
             );
@@ -67,7 +68,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
                 onsketFnr.withDefault('')
             );
         }
-        Logger.log('Oppdater fnr value til: ', onsketFnr);
+        Logger.log('Oppdater fnr value til: ', onsketFnr.withDefault(''));
         yield* updateFnrValue(onsketFnr);
         Logger.log(`Kaller onChange`);
         yield spawnConditionally(props.onChange, onsketFnr.withDefault(''));
@@ -78,7 +79,7 @@ export default function* initialSyncFnr(props: FnrContextvalue) {
         Logger.log(`Kaller onChange`);
         yield spawnConditionally(props.onChange, contextholderFnr.withDefault(''));
     } else {
-        Logger.log('Oppdaterer fnr til onskerFnr: ', onsketFnr);
+        Logger.log('Oppdaterer fnr til onskerFnr: ', onsketFnr.withDefault(''));
         yield* updateFnrValue(onsketFnr);
     }
 }

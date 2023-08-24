@@ -72,12 +72,15 @@ function Application(props: ApplicationProps) {
     );
 }
 
+export let globalMutableApplicationConfig: Partial<ApplicationProps> = {};
+
 class ErrorHandler extends React.Component<ApplicationProps> {
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
         console.error('CATCH', error, errorInfo);
     }
 
     render() {
+        globalMutableApplicationConfig = this.props;
         return (
             <Provider store={store}>
                 <Application {...this.props} />

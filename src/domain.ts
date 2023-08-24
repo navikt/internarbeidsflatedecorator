@@ -66,4 +66,5 @@ export interface ApplicationProps {
     hotkeys?: Hotkey[];
     useProxy?: ProxyConfig;
     accessToken?: string;
+    consumerId?: string;
 }

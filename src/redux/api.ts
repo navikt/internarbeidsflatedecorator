@@ -4,6 +4,7 @@ import { finnMiljoStreng, hentMiljoFraUrl, UrlFormat } from '../utils/url-utils'
 import { AktivBruker, AktivEnhet, AktorIdResponse, Saksbehandler } from '../internal-domain';
 import failureConfig from './../mock/mock-error-config';
 import { ProxyConfig } from '../domain';
+import { globalMutableApplicationConfig } from '../application';
 
 export enum ContextApiType {
     NY_AKTIV_ENHET = 'NY_AKTIV_ENHET',
@@ -65,13 +66,24 @@ export type ResponseError = { data: undefined; error: string };
 export type ResponseOk<T> = { data: T; error: undefined };
 export type FetchResponse<T> = ResponseOk<T> | ResponseError;
 
+const navConsumerIdHeaderName = 'Nav-Consumer-Id';
+const defaultHeaders = (): HeadersInit => {
+    const consumerId = globalMutableApplicationConfig.consumerId;
+    if (consumerId) {
+        return {
+            [navConsumerIdHeaderName]: consumerId
+        };
+    }
+    return {};
+};
+
 function withAccessToken(request?: RequestInit): RequestInit | undefined {
     const authHeader = accessToken
         .map((token) => ({ Authorization: `Bearer ${token}` }))
         .getOrElse({});
 
-    const headers = request && request.headers;
-    const newHeaders = { ...(headers || {}), ...authHeader };
+    const headers: HeadersInit = (request && request.headers) || {};
+    const newHeaders = { ...defaultHeaders(), ...headers, ...authHeader };
     return {
         ...(request || {}),
         headers: newHeaders,

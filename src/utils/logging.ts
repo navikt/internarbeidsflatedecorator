@@ -39,7 +39,15 @@ class Logging {
 
     private log(method: LogLevel, message?: any, ...optionalParams: any[]): void {
         if (method.level >= this.level.level) {
-            console[method.console](message, ...optionalParams);
+            if (method.console === 'warn') {
+                console.warn(message, ...optionalParams);
+            } else if (method.console == 'error') {
+                console.error(message, ...optionalParams);
+            } else if (method.console == 'info') {
+                console.info(message, ...optionalParams);
+            } else {
+                console.log(message, ...optionalParams);
+            }
         }
     }
 }

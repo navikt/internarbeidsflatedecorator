@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="shortcut icon" href="public/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <title>React App</title>
+    <style>
+        html, body {
+            margin: 0;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+<main></main>
+</body>
+<script type="module" src="/src/index.tsx"></script>
+<script>
+    const minimal = function() {
+        return ({
+            appname: 'Modia basic'
+        });
+    };
+    const enhetAware = function() {
+        return ({
+            appname: 'Modia enhet',
+            enhet: {
+                initialValue: '0604',
+                onChange: function(enhet) {
+                    console.warn('ENHET onChange', enhet);
+                },
+                display: 'ENHET_VALG'
+            },
+            toggles: {
+                visEnhetVelger: true
+            }
+        });
+    };
+    const fnrAware = function() {
+        return ({
+            appname: 'Modia enhet',
+            fnr: {
+                initialValue: '10108000398',
+                onChange: function(enhet) {
+                    console.warn('FNR onChange', enhet);
+                },
+                display: 'SOKEFELT'
+            },
+            toggles: {
+                visSokefelt: true
+            }
+        });
+    };
+    const controlled = function(fnrValue, enhetValue) {
+        return ({
+            appname: 'Modia controlled',
+            fnr: {
+                value: fnrValue,
+                display: 'SOKEFELT',
+                onChange: function(fnr) {
+                    console.warn("FNR onChange", fnr);
+                    renderDecorator(fnr, enhetValue);
+                }
+            },
+            enhet: {
+                value: enhetValue,
+                display: 'ENHET_VALG',
+                onChange: function(enhet) {
+                    console.warn("ENHET onChange", enhet);
+                    renderDecorator(fnrValue, enhet);
+                }
+            },
+            toggles: {
+                visVeileder: true
+            },
+            markup: {
+                etterSokefelt: '<button>Min knapp</button>',
+            }
+        });
+    };
+    const complete = function() {
+        return ({
+            appname: 'Modia maximum',
+            fnr: {
+                initialValue: '',
+                display: 'SOKEFELT',
+                onChange: function(fnr) {
+                    console.warn('FNR onChange', fnr);
+                }
+            },
+            enhet: {
+                initialValue: null,
+                display: 'ENHET_VALG',
+                onChange: function(enhet) {
+                    console.warn('ENHET onChange', enhet);
+                }
+            },
+            toggles: {
+                visVeileder: true,
+                visHotkeys: true,
+            },
+            markup: {
+                etterSokefelt: '<button>Min knapp</button>',
+            },
+            hotkeys: [
+                { key: { char: 'A', altKey: true }, description: 'Test description', action() { alert('ALT+A pressed')} },
+                { key: { char: 'B', altKey: true }, description: 'Test description', action() { alert('ALT+B pressed')} },
+                { key: { char: 'C', altKey: true }, description: 'Test description', documentationOnly: true },
+            ]
+        });
+    };
+
+    function renderDecorator(fnr, enhet) {
+        const config = complete(fnr, enhet);
+        NAVSPA.internarbeidsflatefs(document.getElementById('root'), config);
+    }
+
+    setTimeout(function() { renderDecorator('', null); }, 1000);
+</script>
+</html>

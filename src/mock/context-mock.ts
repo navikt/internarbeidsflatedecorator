@@ -1,12 +1,14 @@
-import FetchMock from 'yet-another-fetch-mock';
+import { rest, RestHandler, RestRequest } from 'msw';
 import { FailureConfig } from './mock-error-config';
+import { urlPrefix } from './index';
+// import './mock.css';
 
 function controlSignal(data: object | string) {
     return JSON.stringify({ type: 'control', data });
 }
 
 function updateContext(body: object) {
-    fetch('/modiacontextholder/api/context?fromMock', {
+    fetch(urlPrefix + '/modiacontextholder/api/context?fromMock', {
         credentials: 'include',
         method: 'POST',
         headers: {
@@ -113,7 +115,7 @@ function setupControls() {
     const WStextarea = document.createElement('textarea');
     WStextarea.id = 'mock-control__ws-log';
     WStextarea.style.width = '100%';
-    WStextarea.style.height = '10rem';
+    WStextarea.style.height = '20rem';
     WStextarea.setAttribute('aria-labelledby', 'mock-control_ws-log-header');
     wsLog.appendChild(wsLogHeader);
     wsLog.appendChild(WStextarea);
@@ -141,7 +143,7 @@ function setupControls() {
     const contextTextarea = document.createElement('textarea');
     contextTextarea.id = 'mock-control__context-log';
     contextTextarea.style.width = '100%';
-    contextTextarea.style.height = '10rem';
+    contextTextarea.style.height = '20rem';
     contextTextarea.setAttribute('aria-labelledby', 'mock-control_context-log-header');
 
     contextLog.appendChild(contextLogHeader);
@@ -156,7 +158,7 @@ function addWSLogEntry() {
         const now = new Date().toLocaleTimeString('en-GB');
 
         if (['NY_AKTIV_ENHET', 'NY_AKTIV_BRUKER'].includes(message.data)) {
-            fetch('/modiacontextholder/api/context?fromMock')
+            fetch(urlPrefix + '/modiacontextholder/api/context?fromMock')
                 .then((resp) => resp.json())
                 .then((json) => {
                     textarea.value = `${now} ${message.data}\n(${JSON.stringify(json)})\n${
@@ -168,8 +170,8 @@ function addWSLogEntry() {
     };
 }
 
-function addContextholderLogEntry(input: RequestInfo, message: string) {
-    if (typeof input !== 'string' || !input.endsWith('fromMock')) {
+function addContextholderLogEntry(req: RestRequest, message: string) {
+    if (!req.url.searchParams.get('fromMock')) {
         const textarea = document.getElementById(
             'mock-control__context-log'
         )! as HTMLTextAreaElement;
@@ -184,100 +186,110 @@ function addContextholderLogEntry(input: RequestInfo, message: string) {
 type Context = { aktivEnhet: string | null; aktivBruker: string | null };
 const context: Context = { aktivEnhet: '0118', aktivBruker: '10108000398' };
 
-export function setupWsControlAndMock(mock: FetchMock, errorConfig: FailureConfig) {
+export function setupWsControlAndMock(errorConfig: FailureConfig): RestHandler[] {
+    let handlers: RestHandler[] = [];
     if (window.location.hostname.includes('localhost')) {
-        setupControls();
+        // setupControls();
         const ws = new WebSocket('ws://localhost:2999/hereIsWS');
 
         ws.addEventListener('message', addWSLogEntry());
 
-        mock.post('/modiacontextholder/api/context', (req, res, ctx) => {
-            const { input, body, queryParams } = req;
-            const isRealCall = queryParams.fromMock === undefined;
+        handlers = [
+            rest.post(urlPrefix + '/modiacontextholder/api/context', async (req, res, ctx) => {
+                const queryParams = req.url.searchParams;
+                const body = await req.json();
+                const isRealCall = queryParams.get('fromMock') === undefined;
 
-            if (body.eventType === 'NY_AKTIV_ENHET') {
-                if (isRealCall && errorConfig.contextholder.updateEnhet) {
+                if (body.eventType === 'NY_AKTIV_ENHET') {
+                    if (isRealCall && errorConfig.contextholder.updateEnhet) {
+                        return res(ctx.status(500));
+                    }
+                    context.aktivEnhet = body.verdi;
+                    ws.send(controlSignal('NY_AKTIV_ENHET'));
+                    addContextholderLogEntry(req, `POST NY_AKTIV_ENHET ${body.verdi}`);
+                    return res(ctx.status(200));
+                } else if (body.eventType === 'NY_AKTIV_BRUKER') {
+                    if (isRealCall && errorConfig.contextholder.updateBruker) {
+                        return res(ctx.status(500));
+                    }
+                    context.aktivBruker = body.verdi;
+                    ws.send(controlSignal('NY_AKTIV_BRUKER'));
+                    addContextholderLogEntry(req, `POST NY_AKTIV_BRUKER ${body.verdi}`);
+                    return res(ctx.status(200));
+                } else {
+                    addContextholderLogEntry(req, `POST UKJENT_ENDEPUNKT`);
                     return res(ctx.status(500));
                 }
-                context.aktivEnhet = body.verdi;
-                ws.send(controlSignal('NY_AKTIV_ENHET'));
-                addContextholderLogEntry(input, `POST NY_AKTIV_ENHET ${body.verdi}`);
-                return res(ctx.status(200));
-            } else if (body.eventType === 'NY_AKTIV_BRUKER') {
-                if (isRealCall && errorConfig.contextholder.updateBruker) {
-                    return res(ctx.status(500));
+            }),
+            rest.delete(
+                urlPrefix + '/modiacontextholder/api/context/aktivenhet',
+                (req, res, ctx) => {
+                    if (errorConfig.contextholder.deleteEnhet) {
+                        return res(ctx.status(500));
+                    }
+                    context.aktivEnhet = null;
+                    ws.send(controlSignal('NY_AKTIV_ENHET'));
+                    addContextholderLogEntry(req, `DELETE NY_AKTIV_ENHET`);
+                    return res(ctx.status(200));
                 }
-                context.aktivBruker = body.verdi;
-                ws.send(controlSignal('NY_AKTIV_BRUKER'));
-                addContextholderLogEntry(input, `POST NY_AKTIV_BRUKER ${body.verdi}`);
-                return res(ctx.status(200));
-            } else {
-                addContextholderLogEntry(input, `POST UKJENT_ENDEPUNKT`);
-                return res(ctx.status(500));
-            }
-        });
-
-        mock.delete('/modiacontextholder/api/context/aktivenhet', (req, res, ctx) => {
-            if (errorConfig.contextholder.deleteEnhet) {
-                return res(ctx.status(500));
-            }
-            context.aktivEnhet = null;
-            ws.send(controlSignal('NY_AKTIV_ENHET'));
-            addContextholderLogEntry(req.input, `DELETE NY_AKTIV_ENHET`);
-            return res(ctx.status(200));
-        });
-        mock.delete('/modiacontextholder/api/context/aktivbruker', (req, res, ctx) => {
-            if (errorConfig.contextholder.deleteBruker) {
-                return res(ctx.status(500));
-            }
-            context.aktivBruker = null;
-            ws.send(controlSignal('NY_AKTIV_BRUKER'));
-            addContextholderLogEntry(req.input, `DELETE NY_AKTIV_BRUKER`);
-            return res(ctx.status(200));
-        });
+            ),
+            rest.delete(
+                urlPrefix + '/modiacontextholder/api/context/aktivbruker',
+                (req, res, ctx) => {
+                    if (errorConfig.contextholder.deleteBruker) {
+                        return res(ctx.status(500));
+                    }
+                    context.aktivBruker = null;
+                    ws.send(controlSignal('NY_AKTIV_BRUKER'));
+                    addContextholderLogEntry(req, `DELETE NY_AKTIV_BRUKER`);
+                    return res(ctx.status(200));
+                }
+            )
+        ];
     }
 
-    mock.get('/modiacontextholder/api/context/aktivenhet', (req, res, ctx) => {
-        if (errorConfig.contextholder.getEnhet) {
-            return res(ctx.status(500));
-        }
-        addContextholderLogEntry(req.input, `GET NY_AKTIV_ENHET ${context.aktivEnhet || '<null>'}`);
-        return res(
-            ctx.status(200),
-            ctx.json({
-                aktivEnhet: context.aktivEnhet,
-                aktivBruker: null
-            })
-        );
-    });
-    mock.get('/modiacontextholder/api/context/aktivbruker', (req, res, ctx) => {
-        if (errorConfig.contextholder.getBruker) {
-            return res(ctx.status(500));
-        }
-        addContextholderLogEntry(
-            req.input,
-            `GET NY_AKTIV_BRUKER ${context.aktivBruker || '<null>'}`
-        );
-        return res(
-            ctx.status(200),
-            ctx.json({
-                aktivEnhet: null,
-                aktivBruker: context.aktivBruker
-            })
-        );
-    });
-    mock.get('/modiacontextholder/api/context', (req, res, ctx) => {
-        const isRealCall = req.queryParams.fromMock === undefined;
-        if (isRealCall && errorConfig.contextholder.get) {
-            return res(ctx.status(500));
-        }
-        addContextholderLogEntry(req.input, `GET BOTH\n${JSON.stringify(context)}`);
-        return res(
-            ctx.status(200),
-            ctx.json({
-                aktivEnhet: context.aktivEnhet,
-                aktivBruker: context.aktivBruker
-            })
-        );
-    });
+    handlers = [
+        ...handlers,
+        rest.get(urlPrefix + '/modiacontextholder/api/context/aktivenhet', (req, res, ctx) => {
+            if (errorConfig.contextholder.getEnhet) {
+                return res(ctx.status(500));
+            }
+            addContextholderLogEntry(req, `GET NY_AKTIV_ENHET ${context.aktivEnhet || '<null>'}`);
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    aktivEnhet: context.aktivEnhet,
+                    aktivBruker: null
+                })
+            );
+        }),
+        rest.get(urlPrefix + '/modiacontextholder/api/context/aktivbruker', (req, res, ctx) => {
+            if (errorConfig.contextholder.getBruker) {
+                return res(ctx.status(500));
+            }
+            addContextholderLogEntry(req, `GET NY_AKTIV_BRUKER ${context.aktivBruker || '<null>'}`);
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    aktivEnhet: null,
+                    aktivBruker: context.aktivBruker
+                })
+            );
+        }),
+        rest.get(urlPrefix + '/modiacontextholder/api/context', (req, res, ctx) => {
+            const isRealCall = req.url.searchParams.get('fromMock') === undefined;
+            if (isRealCall && errorConfig.contextholder.get) {
+                return res(ctx.status(500));
+            }
+            addContextholderLogEntry(req, `GET BOTH\n${JSON.stringify(context)}`);
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    aktivEnhet: context.aktivEnhet,
+                    aktivBruker: context.aktivBruker
+                })
+            );
+        })
+    ];
+    return handlers;
 }

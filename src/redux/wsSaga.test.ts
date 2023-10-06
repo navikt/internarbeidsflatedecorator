@@ -21,13 +21,13 @@ function stepThroughSaga(
     const saga = wsListener();
     // Run through saga by providing responses to yield-commands
     saga.next();
-    saga.next(saksbehandler);
-    saga.next(useWSForFnr);
-    const createWsChannelCall = saga.next(useWSForEnhet).value;
+    saga.next(saksbehandler as any);
+    saga.next(useWSForFnr as any);
+    const createWsChannelCall = saga.next(useWSForEnhet as any).value;
     if (createWsChannelCall === undefined) {
         return { channel: undefined, listener: undefined };
     }
-    const wsChangeListener = saga.next(mockEventChannel).value;
+    const wsChangeListener = saga.next(mockEventChannel as any).value;
 
     return { channel: createWsChannelCall, listener: wsChangeListener };
 }

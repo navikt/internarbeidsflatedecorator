@@ -11,13 +11,17 @@
     z-index: 5010;
 }
 .decorator-context-modal {
-    color: #3e3832;
+    padding: 12px 24px;
+    /* Removed this because it modal deafult heading had darker color */
+    /*color: #3e3832;*/
 }
 .decorator-context-modal__footer {
+    display: flex;
+    justify-content: end;
     border-top: 1px solid #b7b1a9;
-    padding: 1.1rem 2rem;
+    padding: 1.1rem 0rem 0rem 0rem;
 }
-.decorator-context-modal__footer .knapp {
+.decorator-context-modal__footer .navds-button:not(:last-child) {
     margin-right: 0.75rem;
 }
 * {

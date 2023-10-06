@@ -1,6 +1,6 @@
 import { MaybeCls } from '@nutgaard/maybe-ts';
 import { put, spawn, take } from 'redux-saga/effects';
-import { EnhetContextvalueState, isEnabled } from '../internal-domain';
+import { ContextvalueState, EnhetContextvalueState, isEnabled } from '../internal-domain';
 import { forkApiWithErrorhandling, selectFromInitializedState } from './utils';
 import { EnhetChanged, ReduxActionTypes, SagaActionTypes } from './actions';
 import * as Api from './api';
@@ -48,7 +48,7 @@ export function* updateWSRequestedEnhet(onsketEnhet: MaybeCls<string>) {
             showModal
         });
 
-        const resolution = yield take([
+        const resolution: { type: SagaActionTypes } = yield take([
             SagaActionTypes.WS_ENHET_ACCEPT,
             SagaActionTypes.WS_ENHET_DECLINE
         ]);
@@ -72,7 +72,7 @@ export function* updateWSRequestedEnhet(onsketEnhet: MaybeCls<string>) {
 }
 
 export function* updateEnhet(action: EnhetChanged) {
-    const props = yield selectFromInitializedState((state) => state.enhet);
+    const props: ContextvalueState<any> = yield selectFromInitializedState((state) => state.enhet);
     if (isEnabled(props)) {
         yield* forkApiWithErrorhandling(
             PredefiniertFeilmeldinger.OPPDATER_ENHET_CONTEXT_FEILET,

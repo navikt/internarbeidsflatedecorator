@@ -1,0 +1,62 @@
+#mock-control button {
+    margin: 10px;
+    padding: 2px;
+    font-family: Arial, sans-serif;
+
+    box-shadow:
+        -2px -2px #e0dede,
+        -2px 0 #e0dede,
+        0 -2px #e0dede,
+        -4px -4px white,
+        -4px 0 white,
+        0 -4px white,
+        2px 2px #818181,
+        0 2px #818181,
+        2px 0 #818181,
+        2px -2px #e0dede,
+        -2px 2px #818181,
+        -4px 2px white,
+        -4px 4px black,
+        4px 4px black,
+        4px 0 black,
+        0 4px black,
+        2px -4px white,
+        4px -4px black;
+}
+
+textarea {
+    background-color: black;
+    background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
+    color: white;
+    font:
+        1rem Inconsolata,
+        monospace;
+    text-shadow: 0 0 5px #c8c8c8;
+
+    /*height: 100vh;*/
+    border: 1px solid gray;
+}
+
+#mock-control {
+    background: #c0c0c0;
+    padding: 1rem;
+    box-shadow:
+        0 -2px #fffdfc,
+        0 -4px #cce9eb;
+}
+
+textarea::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(black, 0.15),
+        rgba(black, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+}

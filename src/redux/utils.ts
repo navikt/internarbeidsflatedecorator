@@ -1,6 +1,6 @@
 import { Action } from 'redux';
 import { fork, call, select, spawn, put } from 'redux-saga/effects';
-import { InitializedState, isInitialized } from './reducer';
+import { InitializedState, isInitialized, State as AppdataState } from './reducer';
 import { State } from './index';
 import { Contextvalue, ControlledContextvalue } from '../domain';
 import { PredefiniertFeilmelding } from './feilmeldinger/domain';
@@ -14,7 +14,7 @@ export function* forkApiWithErrorhandling<Fn extends (...args: any[]) => any>(
     fn: Fn,
     ...args: Parameters<Fn>
 ) {
-    yield fork(function*() {
+    yield fork(function* () {
         yield callApiWithErrorhandling(error, fn, ...args);
     });
 }
@@ -24,7 +24,7 @@ export function* callApiWithErrorhandling<Fn extends (...args: any[]) => any>(
     fn: Fn,
     ...args: Parameters<Fn>
 ) {
-    const result = yield call(fn, ...args);
+    const result: ReturnType<Fn> = yield call(fn, ...args);
     if (hasError(result)) {
         yield put(leggTilFeilmelding(error));
     }
@@ -43,7 +43,7 @@ export function* spawnConditionally<Fn extends (...args: any[]) => any>(
 export function* selectFromInitializedState<T, Fn extends (state: InitializedState) => T>(
     selector: Fn
 ) {
-    const state = yield select((state: State) => state.appdata);
+    const state: AppdataState = yield select((state: State) => state.appdata);
     if (isInitialized(state)) {
         return selector(state);
     }

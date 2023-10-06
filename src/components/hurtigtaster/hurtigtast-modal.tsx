@@ -1,10 +1,7 @@
 import React from 'react';
-import Modal from 'nav-frontend-modal';
-import { Innholdstittel } from 'nav-frontend-typografi';
 import { describe } from './hurtigtaster';
 import { Hotkey } from '../../domain';
-
-Modal.setAppElement(document.getElementById('root'));
+import { Modal } from '@navikt/ds-react';
 
 interface Props {
     isOpen: boolean;
@@ -24,15 +21,11 @@ function HurtigtastModal(props: Props) {
     });
     return (
         <Modal
-            portalClassName="dekorator"
-            contentLabel=""
-            isOpen={props.isOpen}
-            onRequestClose={props.close}
+            open={props.isOpen}
+            onBeforeClose={props.close}
+            header={{ closeButton: true, heading: 'Hurtigtaster' }}
         >
             <div className="hurtigtaster-modal">
-                <Innholdstittel tag="h1" className="blokk-s">
-                    Hurtigtaster
-                </Innholdstittel>
                 <div className="hurtigtaster-tabell-outline typo-normal">
                     <table className="hurtigtaster-tabell">
                         <thead>

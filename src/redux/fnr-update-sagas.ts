@@ -2,7 +2,13 @@ import { call, fork, put, spawn, take } from 'redux-saga/effects';
 import { MaybeCls } from '@nutgaard/maybe-ts';
 import { InitializedState } from './reducer';
 import { forkApiWithErrorhandling, selectFromInitializedState } from './utils';
-import { AktorIdResponse, FnrContextvalueState, isDisabled, isEnabled } from '../internal-domain';
+import {
+    AktorIdResponse,
+    ContextvalueState,
+    FnrContextvalueState,
+    isDisabled,
+    isEnabled
+} from '../internal-domain';
 import { lagFnrFeilmelding } from '../utils/fnr-utils';
 import * as Api from './api';
 import { FetchResponse, hasError } from './api';
@@ -88,7 +94,7 @@ export function* updateWSRequestedFnr(onsketFnr: MaybeCls<string>) {
             showModal
         });
 
-        const resolution = yield take([
+        const resolution: { type: SagaActionTypes } = yield take([
             SagaActionTypes.WS_FNR_ACCEPT,
             SagaActionTypes.WS_FNR_DECLINE
         ]);
@@ -112,7 +118,7 @@ export function* updateWSRequestedFnr(onsketFnr: MaybeCls<string>) {
 }
 
 export function* updateFnr(action: FnrSubmit | FnrReset) {
-    const props = yield selectFromInitializedState((state) => state.fnr);
+    const props: ContextvalueState<any> = yield selectFromInitializedState((state) => state.fnr);
     if (isEnabled(props)) {
         if (action.type === SagaActionTypes.FNRRESET) {
             yield forkApiWithErrorhandling(

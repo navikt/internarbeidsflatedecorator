@@ -8,13 +8,15 @@ import { withLocation } from './test.utils';
 
 describe('url-utils', () => {
     describe('finnMiljoStreng', () => {
-        withLocation('localhost', () => {
-            expect(finnMiljoStreng()).toBe('-q1');
-            expect(finnMiljoStreng(true)).toBe('-q1.dev');
-        });
-        withLocation('https://app.adeo.no/contextpath', () => {
-            expect(finnMiljoStreng()).toBe('');
-            expect(finnMiljoStreng(true)).toBe('');
+        it('skal identifisere -q1', () => {
+            withLocation('localhost', () => {
+                expect(finnMiljoStreng()).toBe('-q1');
+                expect(finnMiljoStreng(true)).toBe('-q1.dev');
+            });
+            withLocation('https://app.adeo.no/contextpath', () => {
+                expect(finnMiljoStreng()).toBe('');
+                expect(finnMiljoStreng(true)).toBe('');
+            });
         });
     });
 

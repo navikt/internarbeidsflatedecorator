@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
-import { guid } from 'nav-frontend-js-utils';
 import visibleIf from './visibleIf';
+import { v4 as uuidv4 } from 'uuid';
 import { SagaActions, SagaActionTypes } from '../redux/actions';
 import { useInitializedState } from '../hooks/use-initialized-state';
 import { useEnhetContextvalueState } from '../hooks/use-contextvalue-state';
@@ -12,7 +12,7 @@ import { Enhet } from '../internal-domain';
 
 function EnhetVelger() {
     const dispatch = useDispatch<Dispatch<SagaActions>>();
-    const id = useRef(guid());
+    const id = useRef(uuidv4());
     const valgtEnhet = useEnhetContextvalueState().withDefault(undefined);
     const enheter: Array<Enhet> = useInitializedState((state) => state.data.saksbehandler)
         .map((saksbehandler) => saksbehandler.enheter)

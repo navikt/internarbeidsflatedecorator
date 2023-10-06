@@ -5,7 +5,7 @@ describe('api', () => {
     describe('modiacontextholder-url', () => {
         it('skal ha riktig url ved kjøring lokalt', () => {
             withLocation('localhost', () => {
-                expect(lagModiacontextholderUrl()).toBe('/modiacontextholder');
+                expect(lagModiacontextholderUrl()).toBe('http://localhost:8080/modiacontextholder');
             });
         });
 

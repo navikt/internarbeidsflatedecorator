@@ -1,4 +1,5 @@
 import log from './logging';
+import { isMock } from './test.utils';
 const SECONDS: number = 1000;
 const MINUTES: number = 60 * SECONDS;
 const MAX_RETRIES: number = 30;
@@ -148,7 +149,7 @@ class WebSocketImpl {
     }
 
     private static print(...args: any[]) {
-        if (process.env.REACT_APP_MOCK === 'true') {
+        if (isMock) {
             log.info('WS:', ...args); // tslint:disable-line
         }
     }

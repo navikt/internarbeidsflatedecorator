@@ -1,4 +1,4 @@
-import { eventChannel } from 'redux-saga';
+import { EventChannel, eventChannel } from 'redux-saga';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { MaybeCls } from '@nutgaard/maybe-ts';
 import WebSocketImpl from '../utils/websocket-impl';
@@ -79,16 +79,16 @@ export function* wsListener() {
     const saksbehandler: MaybeCls<Saksbehandler> = yield selectFromInitializedState(
         (state) => state.data.saksbehandler
     );
-    const fnrConfigRequiresWebsocket = yield selectFromInitializedState((state) =>
+    const fnrConfigRequiresWebsocket: boolean = yield selectFromInitializedState((state) =>
         requiresWebsocket(state.fnr)
     );
-    const enhetConfigRequiresWebsocket = yield selectFromInitializedState((state) =>
+    const enhetConfigRequiresWebsocket: boolean = yield selectFromInitializedState((state) =>
         requiresWebsocket(state.enhet)
     );
 
     if (fnrConfigRequiresWebsocket || enhetConfigRequiresWebsocket) {
         const wsUrl = getWebSocketUrl(saksbehandler);
-        const wsChannel = yield call(createWsChannel, wsUrl);
+        const wsChannel: EventChannel<WsChangeEvent> = yield call(createWsChannel, wsUrl);
         yield takeLatest(wsChannel, wsChange);
     }
 }

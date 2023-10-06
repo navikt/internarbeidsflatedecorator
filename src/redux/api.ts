@@ -46,7 +46,7 @@ export function lagModiacontextholderUrl(proxyConfig: ProxyConfig = false): stri
                 return `https://modiacontextholder${envString}.intern.dev.nav.no/modiacontextholder`;
             }
         case UrlFormat.LOCAL:
-            return '/modiacontextholder';
+            return 'http://localhost:8080/modiacontextholder';
     }
 }
 function lagUrls(proxyConfig: ProxyConfig) {
@@ -96,8 +96,8 @@ export async function getJson<T>(info: RequestInfo, init?: RequestInit): Promise
         }
         const data: T = await response.json();
         return { data, error: undefined };
-    } catch (error) {
-        return { data: undefined, error };
+    } catch (error: unknown) {
+        return { data: undefined, error: error?.toString() || 'Unknown error' };
     }
 }
 
@@ -114,8 +114,8 @@ async function postJson<T>(url: string, body: T, options?: RequestInit): Promise
             return { data: undefined, error: content };
         }
         return { data: body, error: undefined };
-    } catch (error) {
-        return { data: undefined, error };
+    } catch (error: unknown) {
+        return { data: undefined, error: error?.toString() || 'Unknown error' };
     }
 }
 
@@ -130,8 +130,8 @@ async function deleteJson(url: string, options?: RequestInit): Promise<FetchResp
             return { data: undefined, error: content };
         }
         return { data: undefined, error: undefined };
-    } catch (error) {
-        return { data: undefined, error };
+    } catch (error: unknown) {
+        return { data: undefined, error: error?.toString() || 'Unknown error' };
     }
 }
 
@@ -193,9 +193,9 @@ export function hentSaksbehandlerData(): Promise<FetchResponse<Saksbehandler>> {
 }
 
 export function getWebSocketUrl(maybeSaksbehandler: MaybeCls<Saksbehandler>): string | null {
-    if (process.env.REACT_APP_MOCK === 'true' && failureConfig.websocketConnection) {
+    if (import.meta.env.MOCK === 'true' && failureConfig.websocketConnection) {
         return 'ws://localhost:2999/hereIsWS/failure-url';
-    } else if (process.env.NODE_ENV === 'development') {
+    } else if (import.meta.env.MODE === 'development') {
         return 'ws://localhost:2999/hereIsWS';
     } else {
         return maybeSaksbehandler

@@ -15,6 +15,7 @@ import { useOnMount } from './hooks/use-on-mount';
 import { useOnChanged } from './hooks/use-on-changed';
 import { getContextvalueValue, isContextvalueControlled, RESET_VALUE } from './redux/utils';
 import { DecoratorHotkeysProvider } from './components/hurtigtaster/hurtigtaster';
+import { Provider as AkselProvider } from '@navikt/ds-react';
 
 function Application(props: ApplicationProps) {
     const dispatch = useDispatch<Dispatch<SagaActions>>();
@@ -79,9 +80,13 @@ class ErrorHandler extends React.Component<ApplicationProps> {
 
     render() {
         return (
-            <Provider store={store}>
-                <Application {...this.props} />
-            </Provider>
+            <AkselProvider>
+                <Provider store={store}>
+                    <Provider store={store}>
+                        <Application {...this.props} />
+                    </Provider>
+                </Provider>
+            </AkselProvider>
         );
     }
 }

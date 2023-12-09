@@ -76,7 +76,7 @@
         "@types/react-redux": "^7.1.5",
         "concurrently": "^5.2.0",
         "craco-base64-inline-loader": "^1.0.0",
-        "craco-less": "^1.15.0",
+        "craco-less": "^1.17.0",
         "cross-env": "^5.2.0",
         "express": "^4.17.1",
         "husky": "^3.0.0",
@@ -84,7 +84,7 @@
         "postcss-prefix-selector": "^1.7.2",
         "prettier": "^1.18.2",
         "react-app-polyfill": "^1.0.6",
-        "react-scripts": "^3.4.1",
+        "react-scripts": "^5.0.1",
         "typescript": "3.5.3",
         "ws": "^7.4.6",
         "yet-another-fetch-mock": "^4.0.0"

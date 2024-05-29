@@ -313,6 +313,7 @@ export const buildLinks = ({
       url: `${modiaContextHolderUrl(
         environment,
         urlFormat,
+        contextHolderProxy,
       )}/redirect/salesforce`,
     },
     arbeidsmarkedsTiltak: {

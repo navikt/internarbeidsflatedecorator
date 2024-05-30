@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Hotkey } from '../types/Hotkey';
 import { Environment } from '../utils/environmentUtils';
 import {
-  arenaUrl,
   fpSakUrl,
   gosysUrl,
   pesysUrl,
@@ -42,7 +41,6 @@ const generateHotkeys = ({
   ),
   buildHotkey('G', gosysUrl(environment, fnr), 'Gå til Gosys'),
   buildHotkey('I', pesysUrl(environment, fnr), 'Gå til Pesys'),
-  buildHotkey('P', arenaUrl({ environment, fnr }), 'Gå til Arena'),
   buildHotkey('K', fpSakUrl(environment, aktoerId), 'Gå til fpsak'),
 ];
 

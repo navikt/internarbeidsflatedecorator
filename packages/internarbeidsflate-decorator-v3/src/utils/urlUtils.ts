@@ -15,7 +15,6 @@ export interface LinkObject {
   syfomoteOversikt: Url;
   finnfastlege: Url;
   syfomodiaperson: Url;
-  arena: Url;
   aaRegister: Url;
   pesys: Url;
   gosys: Url;
@@ -80,17 +79,6 @@ const modiaUrl = (
       : 'https://modiapersonoversikt' + naisDomain(environment);
 
   return fnr ? basePath + path : basePath;
-};
-
-const arenaConfig = (environment: Environment): string => {
-  const env = findEnvString(environment).replace('-', '');
-  if (env === '') {
-    return 'arena';
-  } else if (env === 'q0') {
-    return 'areq0';
-  } else {
-    return `are${env.charAt(0)}${env.substring(1).padStart(2, '0')}`;
-  }
 };
 
 export const modiaContextHolderUrl = (
@@ -195,24 +183,6 @@ const arbeidssokerUrl = ({
   )}${queryParams}`;
 };
 
-export const arenaUrl = ({
-  environment,
-  fnr,
-}: Pick<BuildLinksProps, 'environment' | 'enhet' | 'fnr'>) => {
-  if (fnr) {
-    const baseUrl = `http://arena${findEnvString(
-      environment,
-    )}.adeo.no/forms/arenaMod${findEnvString(environment).replace(
-      '-',
-      '_',
-    )}.html`;
-    return `${baseUrl}oppstart_skj=AS_REGPERSONALIA&fodselsnr=${fnr}`;
-  }
-  return `http://arena${findEnvString(
-    environment,
-  )}.adeo.no/forms/frmservlet?config=${arenaConfig(environment)}`;
-};
-
 export const veilarbpersonflateUrl = ({
   environment,
   enhet,
@@ -272,9 +242,6 @@ export const buildLinks = ({
     },
     syfomodiaperson: {
       url: `https://syfomodiaperson${naisDomain(environment)}/sykefravaer`,
-    },
-    arena: {
-      url: arenaUrl({ environment, enhet, fnr }),
     },
     aaRegister: {
       url: `${modiaContextHolderUrl(

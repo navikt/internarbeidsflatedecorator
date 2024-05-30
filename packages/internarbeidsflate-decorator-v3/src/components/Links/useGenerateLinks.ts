@@ -105,7 +105,6 @@ const generateLinks = ({
     title: 'Andre systemer',
     newPage: true,
     links: [
-      buildLinkWithTitle(links.arena, 'Arena personmappen'),
       buildLinkWithTitle(links.aaRegister, 'AA register'),
       buildLinkWithTitle(links.pesys, 'Pesys'),
       buildLinkWithTitle(links.gosys, 'Gosys'),

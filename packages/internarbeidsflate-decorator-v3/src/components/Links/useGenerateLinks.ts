@@ -85,7 +85,7 @@ const generateLinks = ({
       buildLinkWithTitle(links.arbeidssokerUrl, 'Registrer arbeidssøker'),
       buildLinkWithTitle(
         links.tiltaksGjennomforingUrl,
-        'Tiltaksjennomføring - avtaler',
+        'Tiltaksgjennomføring - avtaler',
       ),
       buildLinkWithTitle(links.arbeidsmarkedsTiltak, 'Arbeidsmarkedstiltak'),
     ],

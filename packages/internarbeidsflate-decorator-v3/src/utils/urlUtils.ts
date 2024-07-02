@@ -87,21 +87,19 @@ export const modiaContextHolderUrl = (
   contextHolderProxy?: string | undefined | null,
 ): string => {
   if (contextHolderProxy) {
-    return `${contextHolderProxy}/modiacontextholder`;
+    return contextHolderProxy;
   }
 
   switch (urlFormat) {
     case 'LOCAL':
-      return 'http://localhost:4000/modiacontextholder';
+      return 'http://localhost:4000';
     case 'ADEO':
       return `https://app${findEnvString(
         environment,
       )}.adeo.no/modiacontextholder`;
     case 'NAV_NO':
     case 'ANSATT':
-      return `https://modiacontextholder${naisDomain(
-        environment,
-      )}/modiacontextholder`;
+      return `https://modiacontextholder${naisDomain(environment)}`;
   }
 };
 
@@ -109,20 +107,13 @@ export const wsEventDistribusjon = (
   environment: Environment,
   urlFormat: UrlFormat,
 ) => {
-  const subdomain = environment === 'prod' ? '' : '.dev';
   switch (urlFormat) {
     case 'LOCAL':
       return 'ws://localhost:4000/ws/';
     case 'ANSATT':
       return `wss://modiaeventdistribution${ansattDomain(environment)}/ws/`;
-    default: {
-      if (environment === 'q2')
-        return `wss://modiaeventdistribution${naisDomain(environment)}/ws/`;
-      else
-        return `wss://veilederflatehendelser${findEnvString(
-          environment,
-        )}${subdomain}.adeo.no/modiaeventdistribution/ws/`;
-    }
+    default:
+      return `wss://modiaeventdistribution${naisDomain(environment)}/ws/`;
   }
 };
 

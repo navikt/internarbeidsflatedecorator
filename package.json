@@ -22,6 +22,6 @@
     "typescript-eslint": "^7.8.0"
   },
   "dependencies": {
-    "@navikt/navspa": "^6.0.1"
+    "@navikt/navspa": "^6.1.0"
   }
 }

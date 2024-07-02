@@ -17,7 +17,7 @@ export const mockMe: Veileder = {
   ],
 };
 
-const getUrl = (path: string) => `${urlPrefix}/modiacontextholder/api${path}`;
+const getUrl = (path: string) => `${urlPrefix}/api${path}`;
 
 const getErrorResponse = (status = 500) => {
   return new HttpResponse(null, { status });

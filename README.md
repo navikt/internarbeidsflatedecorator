@@ -40,7 +40,7 @@ Om man bruker react som frontendbibliotek kan man så ta ibruk `@navikt/navspa` 
 
 ```typescript jsx
 import NAVSPA from '@navikt/navspa';
-import DecoratorProps from './decorator-props';
+import type DecoratorProps from './decorator-props';
 import decoratorConfig from './decorator-config';
 
 const InternflateDecorator = NAVSPA.importer<DecoratorProps>('internarbeidsflatefs');
@@ -62,12 +62,9 @@ Ett eksempel på hvordan dette kan gjøres kan ses i [index.html](../public/inde
 
 ## Konfigurasjon
 
-Eksempler på konfigurasjoner kan ses i [index.html](../public/index.html).
-
 ```typescript jsx
 export interface DecoratorProps {
   useProxy?: boolean | string; // Manuell overstyring av urlene til BFFs. Gjør alle kall til relativt path hvis true, og bruker verdien som domene om satt til en string. Default: false
-  accessToken?: string; // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
   enhet?: string | undefined; // Konfigurasjon av enhet-kontekst
   accessToken?: string | undefined; // Manuell innsending av JWT, settes som Authorization-header. Om null sendes cookies vha credentials: 'include'
   fnr?: string | undefined; // Konfigurasjon av fødselsnummer-kontekst
@@ -76,7 +73,7 @@ export interface DecoratorProps {
   fetchActiveEnhetOnMount?: boolean | undefined; // Om enhet er undefined fra container appen, og denne er satt til true, henter den sist aktiv enhet og bruker denne.
   fetchActiveUserOnMount?: boolean | undefined; // Om fnr er undefined fra container appen, og denne er satt til true for at den skal hente siste aktiv fnr.
   onBeforeRequest?: (headers: HeadersInit) => HeadersInit | undefined; // Her kan headeren til alle nettverkskall bli modifisert før de blir kalt
-  onEnhetChanged: (enhet?: string | null, enhet?: Enhet) => void; // Kalles når enheten endres
+  onEnhetChanged: (enhetId?: string | null, enhet?: Enhet) => void; // Kalles når enheten endres
   onFnrChanged: (fnr?: string | null) => void; // Kalles når fnr enheten endres
   onLinkClick?: (link: { text: string; url: string }) => void; // Kan brukes for å legge til callbacks ved klikk på lenker i menyen. Merk at callbacken ikke kan awaites og man må selv håndtere at siden lukkes. Nyttig for å f.eks tracke navigasjon events i amplitude
   appName: string; // Navn på applikasjonen
@@ -90,13 +87,13 @@ export interface DecoratorProps {
   proxy?: string | undefined; // Manuell overstyring av urlene til BFFs. Gjør alle kall til relativt path hvis true, og bruker verdien som domene om satt til en string. Default: false
 }
 
-// export interface TogglesConfig {
-//     visVeileder?: boolean;          // Styrer om man skal vise informasjon om innlogget veileder
-//     visHotkeys?: boolean;           // Styrer om man skal vise knappen for hotkeys
-// }
-
 export interface Markup {
   etterSokefelt?: string; // Gir muligheten for sende inn egen html som blir en del av dekoratøren
+}
+
+export interface Enhet {
+  readonly enhetId: string;
+  readonly navn: string;
 }
 
 // Miljø
@@ -111,6 +108,30 @@ export type Environment =
   | 'mock';
 
 export type UrlFormat = 'LOCAL' | 'ADEO' | 'NAV_NO' | 'ANSATT'; // UrlFormat. Brukes om proxy ikke er satt & i url til websocket.
+
+export interface HotkeyObject {
+  char: string;
+  altKey?: boolean;
+  ctrlKey?: boolean;
+  metaKey?: boolean;
+  shiftKey?: boolean;
+}
+
+export interface HotkeyDescription {
+  key: HotkeyObject;
+  description: string;
+  forceOverride?: boolean;
+}
+
+export interface ActionHotKey extends HotkeyDescription {
+  action(event: KeyboardEvent): void;
+}
+
+export interface DocumentingHotKey extends HotkeyDescription {
+  documentationOnly: boolean;
+}
+
+export type Hotkey = ActionHotKey | DocumentingHotKey;
 ```
 
 # Henvendelser

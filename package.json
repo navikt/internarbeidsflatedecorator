@@ -19,7 +19,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.6",
     "prettier": "^3.2.5",
-    "typescript-eslint": "^7.8.0"
+    "typescript-eslint": "^8.0.1"
   },
   "dependencies": {
     "@navikt/navspa": "^6.1.0"

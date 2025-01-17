@@ -26,19 +26,19 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.0",
-    "msw": "^2.6.6",
-    "postcss": "^8.4.49",
+    "concurrently": "^9.1.2",
+    "msw": "^2.7.0",
+    "postcss": "^8.5.1",
     "postcss-import": "^16.1.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.15",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
     "vitest": "^3.0.1",
     "vitest-websocket-mock": "^0.4.0"
   },
@@ -47,16 +47,16 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.5.3",
-    "@navikt/ds-css": "^7.5.3",
-    "@navikt/ds-react": "^7.5.3",
-    "@navikt/ds-tailwind": "^7.5.3",
-    "@navikt/ds-tokens": "^7.5.3",
-    "@navikt/navspa": "^6.2.0",
-    "@tanstack/query-core": "^5.61.5",
+    "@navikt/aksel-icons": "^7.9.2",
+    "@navikt/ds-css": "^7.9.2",
+    "@navikt/ds-react": "^7.9.2",
+    "@navikt/ds-tailwind": "^7.9.2",
+    "@navikt/ds-tokens": "^7.9.2",
+    "@navikt/navspa": "^7.0.0",
+    "@tanstack/query-core": "^5.64.1",
     "classnames": "^2.5.1",
-    "use-sync-external-store": "^1.2.2",
-    "zustand": "^5.0.1"
+    "use-sync-external-store": "^1.4.0",
+    "zustand": "^5.0.3"
   },
   "msw": {
     "workerDirectory": [

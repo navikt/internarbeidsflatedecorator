@@ -13,6 +13,6 @@ updates:
           - '@navikt/aksel-icons'
 
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: '/'
     schedule:
       interval: 'daily'

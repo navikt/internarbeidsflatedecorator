@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useMemo } from 'react';
-import './index.css';
+import './index.bundled.css';
 import useAppLogic from './hooks/useAppLogic';
 import Banner from './components/Banner';
 import Menu from './components/Menu';

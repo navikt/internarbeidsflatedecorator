@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, TextField } from '@navikt/ds-react';
+import '@navikt/ds-css';
 import { useTempValue } from './hooks/useTempValue';
 import { WebSocketWrapper } from '../api/WebSocketWrapper';
 import { ContextHolderAPI } from '../api/ContextHolderAPI';

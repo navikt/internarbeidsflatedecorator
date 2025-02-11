@@ -1,5 +1,6 @@
+@import url('node_modules:@navikt/ds-css') scope(.dekorator);
+@import '@navikt/ds-css/dist/global/tokens.css';
 @import 'tailwindcss' prefix(dr);
-@import '@navikt/ds-css' layer(dr-aksel);
 
 @config '../tailwind.config.js';
 

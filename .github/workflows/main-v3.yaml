@@ -45,7 +45,7 @@ jobs:
 
       - name: Upload build
         uses: actions/upload-artifact@v4
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/react19'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/react19' || github.event_name == 'workflow_dispatch'
         with:
           name: app-dist
           path: dist

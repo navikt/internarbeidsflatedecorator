@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './index.css';
+import './index.bundled.css';
 import classNames from 'classnames';
 import useAppLogic from './hooks/useAppLogic';
 import { AppProps } from './types/AppProps';

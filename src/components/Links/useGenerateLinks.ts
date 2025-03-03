@@ -1,9 +1,9 @@
-import { Environment, UrlFormat } from '../../utils/environmentUtils';
-import { buildLinks, Url } from '../../utils/urlUtils';
-import { useAppState } from '../../states/AppState';
-import StoreHandler from '../../store/StoreHandler';
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/shallow';
+import { useAppState } from '../../states/AppState';
+import StoreHandler from '../../store/StoreHandler';
+import type { Environment, UrlFormat } from '../../utils/environmentUtils';
+import { type Url, buildLinks } from '../../utils/urlUtils';
 
 export interface LinkWithTitle extends Url {
   title: string;
@@ -86,7 +86,7 @@ const generateLinks = ({
       ),
       buildLinkWithTitle(links.beslutterUrl, 'Kvalitetssikring 14a'),
       buildLinkWithTitle(links.veilarbpersonUrl, 'Aktivitetsplan'),
-      buildLinkWithTitle(links.arbeidssokerUrl, 'Registrer arbeidssøker'),
+      buildLinkWithTitle(links.arbeidssokerUrl, 'Arbeidssøkerregisteret'),
       buildLinkWithTitle(
         links.tiltaksGjennomforingUrl,
         'Tiltaksgjennomføring - avtaler',

@@ -58,11 +58,11 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.14.3",
-    "@navikt/ds-css": "^7.14.3",
-    "@navikt/ds-react": "^7.14.3",
-    "@navikt/ds-tailwind": "^7.14.3",
-    "@navikt/ds-tokens": "^7.14.3",
+    "@navikt/aksel-icons": "^7.15.0",
+    "@navikt/ds-css": "^7.15.0",
+    "@navikt/ds-react": "^7.15.0",
+    "@navikt/ds-tailwind": "^7.15.0",
+    "@navikt/ds-tokens": "^7.15.0",
     "@navikt/navspa": "^6.2.0",
     "@tanstack/query-core": "^5.66.11",
     "classnames": "^2.5.1",

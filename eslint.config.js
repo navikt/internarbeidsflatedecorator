@@ -28,4 +28,7 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   prettier,
+  {
+    ignores: ['*.cjs'],
+  },
 );

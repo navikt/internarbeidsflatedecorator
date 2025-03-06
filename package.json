@@ -17,10 +17,11 @@
     }
   },
   "scripts": {
+    "gen-css": "bunx postcss-cli src/index.css > src/index.bundled.css",
     "dev-server": "bun run --watch dev-server/index.ts",
     "dev": "vite",
     "dev:fullscreen": "VITE_DECORATOR_MODE=fullscreen vite",
-    "build": "vite build",
+    "build": "bun run gen-css && vite build",
     "build:watch": "vite build --watch",
     "build-and-preview": "vite build && vite preview",
     "preview": "vite preview",
@@ -30,8 +31,10 @@
     "format": "prettier . --write"
   },
   "devDependencies": {
+    "@csstools/postcss-bundler": "^2.0.6",
     "@eslint/js": "^9.21.0",
     "@tailwindcss/vite": "^4.0.9",
+    "@tailwindcss/postcss": "^4.0.5",
     "@types/bun": "^1.2.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -43,6 +46,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "msw": "^2.7.0",
+    "postcss-cli": "^11.0.0",
     "prettier": "^3.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

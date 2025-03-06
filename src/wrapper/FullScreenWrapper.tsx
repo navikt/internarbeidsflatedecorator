@@ -1,4 +1,5 @@
 import React from 'react';
+import '@navikt/ds-css';
 import LandingPage from '../LandingPage';
 
 const FullScreenWrapper = () => {

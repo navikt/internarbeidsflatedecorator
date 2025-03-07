@@ -25,7 +25,7 @@
     "build:watch": "vite build --watch",
     "build-and-preview": "vite build && vite preview",
     "preview": "vite preview",
-    "build:preview": "vite build --config preview.vite.config.ts",
+    "build:preview": "bun run gen-css && vite build --config preview.vite.config.ts",
     "test": "vitest",
     "lint": "eslint",
     "format": "prettier . --write"

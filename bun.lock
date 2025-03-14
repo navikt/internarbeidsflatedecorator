@@ -10,7 +10,7 @@
         "@navikt/ds-tailwind": "^7.17.2",
         "@navikt/ds-tokens": "^7.17.2",
         "@navikt/navspa": "^6.2.0",
-        "@tanstack/query-core": "^5.67.3",
+        "@tanstack/query-core": "^5.68.0",
         "classnames": "^2.5.1",
         "use-sync-external-store": "^1.4.0",
         "zustand": "^5.0.3",
@@ -303,7 +303,7 @@
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.0.13", "", { "dependencies": { "@tailwindcss/node": "4.0.13", "@tailwindcss/oxide": "4.0.13", "lightningcss": "1.29.2", "tailwindcss": "4.0.13" }, "peerDependencies": { "vite": "^5.2.0 || ^6" } }, "sha512-0XTd/NoVUAktIDaA4MdXhve0QWYh7WlZg20EHCuBFR80F8FhbVkRX+AY5cjbUP/IO2itHzt0iHc0iSE5kBUMhQ=="],
 
-    "@tanstack/query-core": ["@tanstack/query-core@5.67.3", "", {}, "sha512-pq76ObpjcaspAW4OmCbpXLF6BCZP2Zr/J5ztnyizXhSlNe7fIUp0QKZsd0JMkw9aDa+vxDX/OY7N+hjNY/dCGg=="],
+    "@tanstack/query-core": ["@tanstack/query-core@5.68.0", "", {}, "sha512-r8rFYYo8/sY/LNaOqX84h12w7EQev4abFXDWy4UoDVUJzJ5d9Fbmb8ayTi7ScG+V0ap44SF3vNs/45mkzDGyGw=="],
 
     "@types/babel__core": ["@types/babel__core@7.20.5", "", { "dependencies": { "@babel/parser": "^7.20.7", "@babel/types": "^7.20.7", "@types/babel__generator": "*", "@types/babel__template": "*", "@types/babel__traverse": "*" } }, "sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA=="],
 

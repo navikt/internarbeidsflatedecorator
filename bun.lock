@@ -9,7 +9,7 @@
         "@navikt/ds-react": "^7.18.0",
         "@navikt/ds-tailwind": "^7.18.0",
         "@navikt/ds-tokens": "^7.18.0",
-        "@navikt/navspa": "^6.2.0",
+        "@navikt/navspa": "^7.1.0",
         "@tanstack/query-core": "^5.72.0",
         "classnames": "^2.5.1",
         "use-sync-external-store": "^1.5.0",
@@ -221,7 +221,7 @@
 
     "@navikt/ds-tokens": ["@navikt/ds-tokens@7.18.0", "https://npm.pkg.github.com/download/@navikt/ds-tokens/7.18.0/170ed406c6545ec4434cd7f125c932abd07921aa", {}, "sha512-fahy4hyaRsqxoBYwJpNnNwdEMjilOclJKP3zZ3G9pylGIyoZ4ojKWwla9uH5BL3gBcc2lh6mra4f6l41VLyHdw=="],
 
-    "@navikt/navspa": ["@navikt/navspa@6.2.0", "https://npm.pkg.github.com/download/@navikt/navspa/6.2.0/fedd207df70dff922a729cef18a28112274202c6", { "dependencies": { "loadjs": "^4.3.0" }, "peerDependencies": { "react": ">=16.6.0 || 17 || 18", "react-dom": ">=16.6.0 || 17 || 18" } }, "sha512-ix3lqWZWIhIAlmFL883hbmD9kjWk9qeijEGXiQOxPzanpWZ4EeeZhEsXng+MftDurJk04y3Q9i/1x0V7l34O9w=="],
+    "@navikt/navspa": ["@navikt/navspa@7.1.0", "https://npm.pkg.github.com/download/@navikt/navspa/7.1.0/2af02463571fa745c33d6cb5c28d06b157eb9d7d", { "dependencies": { "loadjs": "^4.3.0" }, "peerDependencies": { "react": ">=19.0.0", "react-dom": ">=19.0.0" } }, "sha512-1H9aagGBWp9/PEHZqvjVItoX43fQMrsdDTkrDV9tTsFIDeZ9dQO5l4zj4gExdZS+qmXGgRyT8QtjhIBiWOWo+Q=="],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 

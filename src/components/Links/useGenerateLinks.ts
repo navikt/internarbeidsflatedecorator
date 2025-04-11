@@ -77,12 +77,12 @@ const generateLinks = ({
       buildLinkWithTitle(
         links.veilarbportefoljeUrl,
         'Enhetens oversikt',
-        `/enhet?clean&enhet=${enhet ? enhet : ''}`,
+        `/enhet`,
       ),
       buildLinkWithTitle(
         links.veilarbportefoljeUrl,
         'Min oversikt',
-        `/portefolje?clean&enhet=${enhet ? enhet : ''}`,
+        `/portefolje`,
       ),
       buildLinkWithTitle(links.beslutterUrl, 'Kvalitetssikring 14a'),
       buildLinkWithTitle(links.veilarbpersonUrl, 'Aktivitetsplan'),

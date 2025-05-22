@@ -71,7 +71,7 @@
     "@tanstack/query-core": "^5.76.0",
     "classnames": "^2.5.1",
     "use-sync-external-store": "^1.5.0",
-    "zustand": "^5.0.4"
+    "zustand": "^5.0.5"
   },
   "msw": {
     "workerDirectory": [

@@ -1,11 +1,11 @@
-import { Link } from "@navikt/ds-react";
-import type React from "react";
-import useGlobalHandlers from "../../store/GlobalHandlers";
+import { Link } from '@navikt/ds-react';
+import type React from 'react';
+import useGlobalHandlers from '../../store/GlobalHandlers';
 import type {
   LinkSection,
   LinkSections,
   LinkWithTitle,
-} from "./useGenerateLinks";
+} from './useGenerateLinks';
 
 export const DecoratorLinks: React.FC<LinkSections> = (links) => {
   return (
@@ -96,7 +96,7 @@ const LinkComponent: React.FC<{
     <li className="dr:block dr:text-white dr:py-0.5">
       <Link
         href={href}
-        target={target ?? (newPage ? "_blank" : "_self")}
+        target={target ?? (newPage ? '_blank' : '_self')}
         className="dr:block! dr:text-white! dr:no-underline! dr:focus:outline-hidden! dr:focus:ring! dr:focus:ring-orange-400! dr:focus:bg-transparent! dr:hover:text-orange-400! dr:hover:before:w-2! dr:hover:before:h-2! dr:hover:before:-mr-2! dr:hover:before:bg-orange-400! dr:hover:before:rounded-full! dr:hover:before:inline-block! dr:hover:before:-left-4! dr:hover:before:relative! dr:hover:before:mb-[2px]! dr:hover:visited:text-orange-400!"
         onClick={onClick}
         //data-umami-event="lenke klikket"

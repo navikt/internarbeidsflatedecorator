@@ -16,7 +16,7 @@
         "zustand": "^5.0.5",
       },
       "devDependencies": {
-        "@csstools/postcss-bundler": "^2.0.7",
+        "@csstools/postcss-bundler": "^2.0.8",
         "@eslint/js": "^9.28.0",
         "@tailwindcss/postcss": "^4.1.8",
         "@tailwindcss/vite": "^4.1.8",
@@ -99,7 +99,7 @@
 
     "@csstools/css-tokenizer": ["@csstools/css-tokenizer@3.0.4", "", {}, "sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw=="],
 
-    "@csstools/postcss-bundler": ["@csstools/postcss-bundler@2.0.7", "", { "dependencies": { "@csstools/css-parser-algorithms": "^3.0.5", "@csstools/css-tokenizer": "^3.0.4", "@csstools/postcss-rebase-url": "^2.0.5" }, "peerDependencies": { "postcss": "^8.4" } }, "sha512-2dwCnVBJgc6qrWv96xwpGoGSFpUT/AoXuGekATmNLNd8P9Lb482zbMiEarXflymqEu1PRet+ZYzeGGLwk1JbRg=="],
+    "@csstools/postcss-bundler": ["@csstools/postcss-bundler@2.0.8", "", { "dependencies": { "@csstools/css-parser-algorithms": "^3.0.5", "@csstools/css-tokenizer": "^3.0.4", "@csstools/postcss-rebase-url": "^2.0.5" }, "peerDependencies": { "postcss": "^8.4" } }, "sha512-mk+dWd/Tf1cDga/HDmxty37NBDtf0r8lnXvlOMuByb2mA6UQCuR0TrYUMml6HqJPuajcaZ8yb7OPxnG0lj6NYQ=="],
 
     "@csstools/postcss-rebase-url": ["@csstools/postcss-rebase-url@2.0.5", "", { "dependencies": { "@csstools/css-parser-algorithms": "^3.0.5", "@csstools/css-tokenizer": "^3.0.4" }, "peerDependencies": { "postcss": "^8.4" } }, "sha512-eAXSRCzvNt/Kn8wyW2VyF+C9tiA7IxE71Vn+Garc50uwXD7bsui/XhJfbOHd5CN43tEFt5ebWk2WjdSPNMYmFA=="],
 

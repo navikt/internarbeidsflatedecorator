@@ -125,6 +125,7 @@ const generateLinks = ({
       buildLinkWithTitle(links.refusjon, 'Refusjon tilskudd'),
       buildLinkWithTitle(links.salesforce, 'Salesforce'),
       buildLinkWithTitle(links.kunnskapsbasenNKS, 'Kunnskapsbasen NKS'),
+      buildLinkWithTitle(links.Kunnskapsbank, 'Kunnskapsbank'),
     ],
   };
 

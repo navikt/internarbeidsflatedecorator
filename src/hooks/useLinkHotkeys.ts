@@ -45,7 +45,7 @@ const generateHotkeys = ({
   buildHotkey('K', fpSakUrl(environment, aktoerId), 'Gå til fpsak'),
   buildHotkey(
     'R',
-    arbeidssokerUrl({ environment, enhet, fnr }),
+    arbeidssokerUrl({ environment }),
     'Gå til Arbeidssøkerregister',
   ),
 ];

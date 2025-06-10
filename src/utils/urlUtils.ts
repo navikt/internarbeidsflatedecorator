@@ -157,7 +157,7 @@ const k9url = (environment: Environment) =>
     ? 'https://k9-los-web.intern.nav.no'
     : 'https://k9-los-web.intern.dev.nav.no';
 
-const arbeidssokerUrl = ({
+export const arbeidssokerUrl = ({
   environment,
 }: Pick<BuildLinksProps, 'environment'>) => {
   return `https://arbeidssokerregistrering-for-veileder${naisDomain(

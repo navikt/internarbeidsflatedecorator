@@ -28,7 +28,8 @@ export interface LinkObject {
   salesforce: Url;
   arbeidsmarkedsTiltak: Url;
   kunnskapsbasenNKS: Url;
-  kunnskapsbank: Url;
+  Kunnskapsbank: Url;
+  fia: Url;
 }
 
 const findEnvString = (environment: Environment) => {
@@ -270,8 +271,11 @@ export const buildLinks = ({
     kunnskapsbasenNKS: {
       url: 'https://data.ansatt.nav.no/story/e7b3e02a-0c45-4b5c-92a2-a6d364120dfb',
     },
-    kunnskapsbank: {
+    Kunnskapsbank: {
       url: 'https://navno.sharepoint.com/sites/fag-og-ytelser-Kunnskapsbank-trygdemedisin',
+    },
+    fia: {
+      url: 'https://fia.ansatt.nav.no/',
     },
   };
 };

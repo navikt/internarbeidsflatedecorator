@@ -126,6 +126,7 @@ const generateLinks = ({
       buildLinkWithTitle(links.salesforce, 'Salesforce'),
       buildLinkWithTitle(links.kunnskapsbasenNKS, 'Kunnskapsbasen NKS'),
       buildLinkWithTitle(links.Kunnskapsbank, 'Kunnskapsbank'),
+      buildLinkWithTitle(links.fia, 'Fia'),
     ],
   };
 

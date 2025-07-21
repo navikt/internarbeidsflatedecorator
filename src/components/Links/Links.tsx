@@ -99,8 +99,8 @@ const LinkComponent: React.FC<{
         target={target ?? (newPage ? '_blank' : '_self')}
         className="dr:block! dr:text-white! dr:no-underline! dr:focus:outline-hidden! dr:focus:ring! dr:focus:ring-orange-400! dr:focus:bg-transparent! dr:hover:text-orange-400! dr:hover:before:w-2! dr:hover:before:h-2! dr:hover:before:-mr-2! dr:hover:before:bg-orange-400! dr:hover:before:rounded-full! dr:hover:before:inline-block! dr:hover:before:-left-4! dr:hover:before:relative! dr:hover:before:mb-[2px]! dr:hover:visited:text-orange-400!"
         onClick={onClick}
-        //data-umami-event="lenke klikket"
-        //data-umami-event-url={href.replace(/fnr=\d+/, '/fnr=*****')}
+        data-umami-event="lenke klikket"
+        data-umami-event-url={href.replace(/fnr=\d+/, '/fnr=*****')}
       >
         {linkText}
       </Link>

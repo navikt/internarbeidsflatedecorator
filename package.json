@@ -68,7 +68,7 @@
     "@navikt/ds-tailwind": "^7.32.1",
     "@navikt/ds-tokens": "^7.32.1",
     "@navikt/navspa": "^6.2.0",
-    "@tanstack/query-core": "^5.89.0",
+    "@tanstack/query-core": "^5.90.3",
     "classnames": "^2.5.1",
     "use-sync-external-store": "^1.6.0",
     "zustand": "^5.0.8"

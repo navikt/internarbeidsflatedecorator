@@ -4,11 +4,11 @@
     "": {
       "name": "internarbeidsflate-decorator",
       "dependencies": {
-        "@navikt/aksel-icons": "^7.33.1",
-        "@navikt/ds-css": "^7.33.1",
-        "@navikt/ds-react": "^7.33.1",
-        "@navikt/ds-tailwind": "^7.33.1",
-        "@navikt/ds-tokens": "^7.33.1",
+        "@navikt/aksel-icons": "^7.33.2",
+        "@navikt/ds-css": "^7.33.2",
+        "@navikt/ds-react": "^7.33.2",
+        "@navikt/ds-tailwind": "^7.33.2",
+        "@navikt/ds-tokens": "^7.33.2",
         "@navikt/navspa": "^6.2.0",
         "@tanstack/query-core": "^5.90.7",
         "classnames": "^2.5.1",
@@ -213,15 +213,15 @@
 
     "@mswjs/interceptors": ["@mswjs/interceptors@0.37.1", "", { "dependencies": { "@open-draft/deferred-promise": "^2.2.0", "@open-draft/logger": "^0.3.0", "@open-draft/until": "^2.0.0", "is-node-process": "^1.2.0", "outvariant": "^1.4.3", "strict-event-emitter": "^0.5.1" } }, "sha512-SvE+tSpcX884RJrPCskXxoS965Ky/pYABDEhWW6oeSRhpUDLrS5nTvT5n1LLSDVDYvty4imVmXsy+3/ROVuknA=="],
 
-    "@navikt/aksel-icons": ["@navikt/aksel-icons@7.33.1", "https://npm.pkg.github.com/download/@navikt/aksel-icons/7.33.1/4b1aae42fe6c235f7406044bff5adfe23512d620", {}, "sha512-7SEvVy4nwDTEsRw7JfBlJJBCt0jpklOCphkHQIhAuIKTVPWTzYpBHrSq9thed+mlZFI9lFSeDc+bRQZRv4qfcg=="],
+    "@navikt/aksel-icons": ["@navikt/aksel-icons@7.33.2", "https://npm.pkg.github.com/download/@navikt/aksel-icons/7.33.2/e39a489773cb78aa2a0cb96ee89ba3793dc856de", {}, "sha512-yF676LoUCSVQoN9X03ONh0gi3svpTpWScpjmHqxxjBPDJf0okIBQKFztI6iGOrFIB/kVyI4M8Qy8EsBuop1KAA=="],
 
-    "@navikt/ds-css": ["@navikt/ds-css@7.33.1", "https://npm.pkg.github.com/download/@navikt/ds-css/7.33.1/9e6a45210730b38522b9d3146775694204feecf1", {}, "sha512-CKgXO0UyAmgvAtKAx1N6OFwZ5lcZlZMSr6Gj+dPt7y4PjNNSGitVaDlrxRIyaaqGZ1IJpOvoRb1j4HdN5Js/LQ=="],
+    "@navikt/ds-css": ["@navikt/ds-css@7.33.2", "https://npm.pkg.github.com/download/@navikt/ds-css/7.33.2/479e17163cea5c114de01a6b6801b321b8e94207", {}, "sha512-isd/GMpXLLrfEl1fLXVZmwxCQUa+tb7qY8V4zt+OqKVXxb9RkNvYONEAVmR7pFTklhPYafU4sJDt6mPfWBrhZw=="],
 
-    "@navikt/ds-react": ["@navikt/ds-react@7.33.1", "https://npm.pkg.github.com/download/@navikt/ds-react/7.33.1/67dd16f2c9bbf83aef0f2f7a0bf99ee2ed1d4b23", { "dependencies": { "@floating-ui/react": "0.27.8", "@floating-ui/react-dom": "^2.1.6", "@navikt/aksel-icons": "^7.33.1", "@navikt/ds-tokens": "^7.33.1", "clsx": "^2.1.0", "date-fns": "^4.0.0", "react-day-picker": "9.7.0" }, "peerDependencies": { "@types/react": "^17.0.30 || ^18 || ^19", "react": "^17 || ^18 || ^19", "react-dom": "^17 || ^18 || ^19" } }, "sha512-wKprkWsjzf4FStL/Le+K+W7mfkVETthPq1U23rxtrRIb6OSYWFzHXaZgaVKgGLrbTgoOaxF/Gh/4VJfLYW06Fw=="],
+    "@navikt/ds-react": ["@navikt/ds-react@7.33.2", "https://npm.pkg.github.com/download/@navikt/ds-react/7.33.2/0841c85fc1181a633edcd33fdff5f7a39f8685ec", { "dependencies": { "@floating-ui/react": "0.27.8", "@floating-ui/react-dom": "^2.1.6", "@navikt/aksel-icons": "^7.33.2", "@navikt/ds-tokens": "^7.33.2", "clsx": "^2.1.0", "date-fns": "^4.0.0", "react-day-picker": "9.7.0" }, "peerDependencies": { "@types/react": "^17.0.30 || ^18 || ^19", "react": "^17 || ^18 || ^19", "react-dom": "^17 || ^18 || ^19" } }, "sha512-RHVraNiRxn2zTDtbJSsWRGSVc6qQLhV0HiALcvU9vSSzrQ5AFXhdEEmCbWsl6Dy4/TjxJJYV/KhHX2ZH1ZMwjw=="],
 
-    "@navikt/ds-tailwind": ["@navikt/ds-tailwind@7.33.1", "https://npm.pkg.github.com/download/@navikt/ds-tailwind/7.33.1/e8d8877a0d1464334bb7609792dd78388650c6fc", {}, "sha512-Rm1AT+n1Lq0vfwwZThyKaVjlsCcdKUp61/D8JqyKREiSQ1D8FEBlTehXSpZ1XZRTTzRzXdYCqE/iAmLicBNFvQ=="],
+    "@navikt/ds-tailwind": ["@navikt/ds-tailwind@7.33.2", "https://npm.pkg.github.com/download/@navikt/ds-tailwind/7.33.2/5e6a99f99d17d9724c58cd2935b79a06c1a75605", {}, "sha512-K23rvGfMmzijR3k0LEKpV8SjlSCfApsIh+aJDtZX6xegpuBcttdSWYYcJALjVGxQ1IVchZtxWlwe2QqoAPtHhg=="],
 
-    "@navikt/ds-tokens": ["@navikt/ds-tokens@7.33.1", "https://npm.pkg.github.com/download/@navikt/ds-tokens/7.33.1/6cfc90daa4f6daf6d7e776144d05590996f80775", {}, "sha512-aL1b3mhcCL2k6yD/+V6OzARBEo0g5mxm48mU0P8GnQn6/vVC4Agxu/nug4xcWf+N1tRnS3Hj+XSmVsKx7+T7lg=="],
+    "@navikt/ds-tokens": ["@navikt/ds-tokens@7.33.2", "https://npm.pkg.github.com/download/@navikt/ds-tokens/7.33.2/8445fc29c01e33add96f1a9aa8bbcd07b750b6ce", {}, "sha512-8BdcWjTFV+FJr2BWAvBj/fLgh4tfWrGYwM4fWN2fCS4VQsTdG3dpP/xgBd5xcHK2DSfaBGEaebWi3jfvV/QOsg=="],
 
     "@navikt/navspa": ["@navikt/navspa@6.2.0", "https://npm.pkg.github.com/download/@navikt/navspa/6.2.0/fedd207df70dff922a729cef18a28112274202c6", { "dependencies": { "loadjs": "^4.3.0" }, "peerDependencies": { "react": ">=16.6.0 || 17 || 18", "react-dom": ">=16.6.0 || 17 || 18" } }, "sha512-ix3lqWZWIhIAlmFL883hbmD9kjWk9qeijEGXiQOxPzanpWZ4EeeZhEsXng+MftDurJk04y3Q9i/1x0V7l34O9w=="],
 

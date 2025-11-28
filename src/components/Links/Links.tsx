@@ -71,7 +71,6 @@ const Row: React.FC<{ linkSection: LinkSection }> = ({ linkSection }) => {
               href={href}
               newPage={linkSection.newPage}
               linkText={link.title}
-              target={link.target}
             />
           );
         })}
@@ -84,8 +83,7 @@ const LinkComponent: React.FC<{
   href: string;
   newPage?: boolean | undefined;
   linkText: string;
-  target?: string | undefined;
-}> = ({ href, linkText, newPage = false, target }) => {
+}> = ({ href, linkText, newPage = false }) => {
   const onLinkClick = useGlobalHandlers((state) => state.onLinkClick);
 
   const onClick = () => {
@@ -96,7 +94,7 @@ const LinkComponent: React.FC<{
     <li className="dr:block dr:text-white dr:py-0.5">
       <Link
         href={href}
-        target={target ?? (newPage ? '_blank' : '_self')}
+        target={newPage ? '_blank' : '_self'}
         className="dr:block! dr:text-white! dr:no-underline! dr:focus:outline-hidden! dr:focus:ring! dr:focus:ring-orange-400! dr:focus:bg-transparent! dr:hover:text-orange-400! dr:hover:before:w-2! dr:hover:before:h-2! dr:hover:before:-mr-2! dr:hover:before:bg-orange-400! dr:hover:before:rounded-full! dr:hover:before:inline-block! dr:hover:before:-left-4! dr:hover:before:relative! dr:hover:before:mb-[2px]! dr:hover:visited:text-orange-400!"
         onClick={onClick}
         data-umami-event="lenke klikket"

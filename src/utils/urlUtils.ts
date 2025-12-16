@@ -31,6 +31,7 @@ export interface LinkObject {
   Kunnskapsbank: Url;
   fia: Url;
   ungdomsprogrammet: Url;
+  kelvin: Url;
 }
 
 const findEnvString = (environment: Environment) => {
@@ -280,6 +281,9 @@ export const buildLinks = ({
     },
     ungdomsprogrammet: {
       url: `https://ungdomsytelse-veileder${naisDomain(environment)}`,
+    },
+    kelvin: {
+      url: `https://kelvin${naisDomain(environment)}`,
     },
   };
 };

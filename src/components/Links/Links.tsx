@@ -89,7 +89,15 @@ const LinkComponent: React.FC<{
     onLinkClick?.(linkText, href);
   };
 
-  const trackOutBound = window.location.host != new URL(href).host;
+  const linkhost = (() => {
+    try {
+      return new URL(href).host;
+    } catch {
+      return null;
+    }
+  })();
+
+  const trackOutBound = window.location.host != linkhost;
   const umamiOutboundLink = trackOutBound
     ? { 'data-umami-event-url': href.replace(/fnr=\d+/, '/fnr=*****') }
     : {};

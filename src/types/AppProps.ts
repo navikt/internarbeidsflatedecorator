@@ -24,14 +24,13 @@ interface DomainProps {
 
 export interface AppProps extends DomainProps, Omit<AppState, 'open'> {}
 
-export interface DecoratorProps
-  extends Omit<
-    AppProps,
-    | 'ignoreExternalFnr'
-    | 'ignoreExternalEnhet'
-    | 'enhetWriteDisabled'
-    | 'fnrWriteDisabled'
-  > {
+export interface DecoratorProps extends Omit<
+  AppProps,
+  | 'ignoreExternalFnr'
+  | 'ignoreExternalEnhet'
+  | 'enhetWriteDisabled'
+  | 'fnrWriteDisabled'
+> {
   fnrSyncMode?: 'writeOnly' | 'sync' | 'ignore';
   enhetSyncMode?: 'writeOnly' | 'sync' | 'ignore';
 }

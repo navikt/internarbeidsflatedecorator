@@ -1,4 +1,5 @@
-import { Serve, Server } from 'bun';
+import type { Serve, Server as BunServer } from 'bun';
+
 import {
   Route,
   WebSocketRoute,
@@ -18,8 +19,8 @@ import { SuccessResponse } from './responses/SuccessResponse';
 export class CustomServer {
   #routes: Route[] = [];
   #websocketRoutes: WebSocketRoute[] = [];
-  #serverOptions: Serve<BunServerMetadata>;
-  #server?: Server;
+  #serverOptions: Serve.Options<BunServerMetadata>;
+  #server?: BunServer<BunServerMetadata>;
   #corsAllowedOrigins?: string | undefined;
   #corsAllowedMethods?: string | undefined;
 
@@ -75,7 +76,7 @@ export class CustomServer {
 
   #fetch = (
     req: Request,
-    server: Server,
+    server: BunServer<BunServerMetadata>,
   ): Response | Promise<Response> | undefined => {
     const url = new URL(req.url);
     const pathName = url.pathname;
@@ -219,7 +220,7 @@ export class CustomServer {
   #upgradeConnection = <T>(
     path: string,
     request: Request,
-    metadata: T,
+    metadata?: T,
   ): boolean | undefined => {
     const parts = this.#buildParts(path);
     const pathname = new URL(request.url).pathname;
@@ -228,13 +229,12 @@ export class CustomServer {
       path: pathname,
     };
 
-    const result = this.#server!.upgrade(request, {
+    return this.#server!.upgrade(request, {
       data: {
-        metadata,
+        metadata: metadata as Record<string, T> | undefined,
         ...websocketRoute,
       },
     });
-    return result;
   };
 
   listen = () => {

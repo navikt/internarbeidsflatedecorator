@@ -11,7 +11,7 @@ Ved eventuelle endringer i andre flater vil det vises en bekreftelse-modal, og h
 
 ## Ta ibruk
 
-Legg til følgende i index.html
+Legg til følgende i index.html. **Det er viktig at CSS fila til appen importeres etter kodesnutten under for å unngå at stylingen til appen blir overskrevet av dekoratøren sin styling.** 
 
 **I dev**
 

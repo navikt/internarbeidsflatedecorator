@@ -7,6 +7,7 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: false,
     minify: true,
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       input: 'src/web-component.ts',
       output: {

@@ -14,6 +14,9 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/internarbeidsflate-decorator-v3.umd.js"
       }
+    },
+    "./web-component": {
+      "import": "./dist/internarbeidsflate-decorator.wc.js"
     }
   },
   "scripts": {
@@ -22,6 +25,7 @@
     "dev": "vite",
     "dev:fullscreen": "VITE_DECORATOR_MODE=fullscreen vite",
     "build": "bun run gen-css && vite build",
+    "build:wc": "bun run gen-css && vite build --config webcomponent.vite.config.ts",
     "build:watch": "vite build --watch",
     "build-and-preview": "vite build && vite preview",
     "preview": "vite preview",

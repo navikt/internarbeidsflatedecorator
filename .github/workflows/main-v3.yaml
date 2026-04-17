@@ -41,11 +41,11 @@ jobs:
         run: bun run test
 
       - name: Build application
-        run: bun run build
+        run: bun run build && bun run build:wc
 
       - name: Upload build
         uses: actions/upload-artifact@v7
-        if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+        if: github.ref == 'refs/heads/migrer-web-component' || github.event_name == 'workflow_dispatch'
         with:
           name: app-dist
           path: dist
@@ -54,7 +54,7 @@ jobs:
     name: Deploy to dev
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/master' || github.event_name == 'workflow_dispatch'
+    if: github.ref == 'refs/heads/migrer-web-component' || github.event_name == 'workflow_dispatch'
     environment: dev-cdn
     permissions:
       contents: 'read'

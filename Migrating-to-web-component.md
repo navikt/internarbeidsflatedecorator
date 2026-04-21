@@ -52,15 +52,28 @@ Callbacks (`onEnhetChanged`, `onFnrChanged`, `onLinkClick`) er erstattet med DOM
 <Decorator onEnhetChanged={(enhet) => setEnhet(enhet)} />
 ```
 
-**Etter (React 19):**
+**Etter (React 19 — enkle tilfeller):**
 ```tsx
 <internarbeidsflate-decorator onEnhetChanged={(e: CustomEvent) => setEnhet(e.detail.enhet)} />
 ```
 
-**Etter (React 18 / vanilla JS):**
-```js
-decorator.addEventListener('enhet-changed', (e) => setEnhet(e.detail.enhet));
+**Etter (React 18, eller React 19 med `fetch-active-user-on-mount` / `fetch-active-enhet-on-mount`):**
+```tsx
+useLayoutEffect(() => {
+  const el = ref.current;
+  if (!el) return;
+  const onEnhetChanged = (e: Event) => setEnhet((e as CustomEvent).detail.enhet);
+  const onFnrChanged = (e: Event) => setFnr((e as CustomEvent).detail.fnr);
+  el.addEventListener('enhet-changed', onEnhetChanged);
+  el.addEventListener('fnr-changed', onFnrChanged);
+  return () => {
+    el.removeEventListener('enhet-changed', onEnhetChanged);
+    el.removeEventListener('fnr-changed', onFnrChanged);
+  };
+}, []);
 ```
+
+> Dekoratøren henter aktiv bruker/enhet fra contextholder ved oppstart. Dette kan skje raskt nok til at det første eventet går tapt med React 19 event props. Se [README.md](./README.md) for mer detaljer.
 
 ---
 

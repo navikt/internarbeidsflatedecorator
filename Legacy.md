@@ -54,7 +54,7 @@ function App() {
 }
 ```
 
-> **Merk:** For apper med React >= 19 så må NAVSPA må ha nøyaktig samme versjon av React som hovedappen. 
+> **Merk:** For apper med React >= 19 så må NAVSPA ha nøyaktig samme versjon av React som hovedappen. 
 
 ---
 

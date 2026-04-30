@@ -7,11 +7,19 @@ export const useOnOutsideClick = <T extends Node>(
 
   const listener = useCallback(
     (event: Event) => {
-      if (
-        event.target instanceof Node &&
-        ref.current &&
-        !ref.current.contains(event.target)
-      ) {
+      if (!ref.current) return;
+      // Bruk composedPath() slik at klikk inni en shadow root ikke feiltolkes
+      // som outside-klikk (event.target blir retargetet til shadow host).
+      const isInside = event
+        .composedPath()
+        .some(
+          (node) =>
+            node === ref.current ||
+            (node instanceof Node &&
+              ref.current instanceof Node &&
+              ref.current.contains(node)),
+        );
+      if (!isInside) {
         onOutsideCallback();
       }
     },

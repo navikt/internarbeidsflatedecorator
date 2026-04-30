@@ -134,47 +134,6 @@ decorator.setAttribute('enhet', nyEnhet);
 
 ---
 
-### TypeScript
-
-Når dekoratøren brukes som web component, kjenner ikke TypeScript til `<internarbeidsflate-decorator>` som et gyldig JSX-element. Opprett f.eks. `src/decorator-elements.d.ts` med følgende innhold:
-
-```ts
-interface DecoratorElementAttributes {
-  'app-name'?: string;
-  environment?: string;
-  'url-format'?: string;
-  fnr?: string;
-  enhet?: string;
-  'fnr-sync-mode'?: string;
-  'enhet-sync-mode'?: string;
-  'show-enheter'?: string;
-  'show-search-area'?: string;
-  'show-hotkeys'?: string;
-  'enable-hotkeys'?: string;
-  'fetch-active-enhet-on-mount'?: string;
-  'fetch-active-user-on-mount'?: string;
-  markup?: string;
-  hotkeys?: string;
-  proxy?: string;
-  'websocket-url'?: string;
-  'access-token'?: string;
-  'include-credentials'?: string;
-  'user-key'?: string;
-}
-
-declare namespace React {
-  namespace JSX {
-    interface IntrinsicElements {
-      'internarbeidsflate-decorator': React.HTMLAttributes<HTMLElement> &
-        React.RefAttributes<HTMLElement> &
-        DecoratorElementAttributes;
-    }
-  }
-}
-```
-
----
-
 ## Konfigurasjon
 
 Alle props settes som HTML-attributter (camelCase → kebab-case). Boolske attributter settes uten verdi (tilstede = `true`) eller utelates (= `false`).
@@ -210,38 +169,123 @@ Alle props settes som HTML-attributter (camelCase → kebab-case). Boolske attri
 | `fnr-changed`   | `{ fnr: string\|null }`                        | Kalles når fnr endres        |
 | `link-click`    | `{ text: string, url: string }`                | Kalles ved klikk på menylenker |
 
-### TypeScript-typer
+### TypeScript
 
-For full typeinformasjon, her er React-grensesnittet (camelCase). Web component-attributtene er kebab-case-ekvivalentene:
+Dekoratøren eksponerer to TypeScript-grensesnitt:
+
+- **`DecoratorElementAttributes`** — HTML-attributter i kebab-case, til bruk i JSX-typedeklarasjoner for web componenten. 
+- **`DecoratorProps`** — det fullstendige React-grensesnittet med riktige TypeScript-typer og tydelige påkrevde felt. Bruk dette når du importerer dekoratøren som React-komponent.
+
+#### JSX-typedeklarasjon
+
+Når dekoratøren brukes som web component, kjenner ikke TypeScript til `<internarbeidsflate-decorator>` som et gyldig JSX-element. Opprett f.eks. `src/decorator-elements.d.ts` med følgende innhold:
+
+```ts
+interface EnhetChangedDetail {
+  enhet?: string | null;
+  enhetObjekt?: { enhetId: string; navn: string };
+}
+
+interface FnrChangedDetail {
+  fnr?: string | null;
+}
+
+interface LinkClickDetail {
+  text: string;
+  url: string;
+}
+
+interface DecoratorElementAttributes {
+  // Påkrevde attributter
+  'app-name': string;
+  environment: string;
+  'url-format': string;
+  'show-enheter': string;
+  'show-search-area': string;
+  'show-hotkeys': string;
+  // Valgfrie attributter
+  fnr?: string;
+  enhet?: string;
+  'fnr-sync-mode'?: string;
+  'enhet-sync-mode'?: string;
+  'enable-hotkeys'?: string;
+  'fetch-active-enhet-on-mount'?: string;
+  'fetch-active-user-on-mount'?: string;
+  markup?: string;
+  hotkeys?: string;
+  proxy?: string;
+  'websocket-url'?: string;
+  'access-token'?: string;
+  'include-credentials'?: string;
+  'user-key'?: string;
+}
+
+interface InternarbeidsflateDecoratorElement extends HTMLElement {
+  addEventListener(type: 'enhet-changed', listener: (event: CustomEvent<EnhetChangedDetail>) => void, options?: boolean | AddEventListenerOptions): void;
+  addEventListener(type: 'fnr-changed', listener: (event: CustomEvent<FnrChangedDetail>) => void, options?: boolean | AddEventListenerOptions): void;
+  addEventListener(type: 'link-click', listener: (event: CustomEvent<LinkClickDetail>) => void, options?: boolean | AddEventListenerOptions): void;
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+  removeEventListener(type: 'enhet-changed', listener: (event: CustomEvent<EnhetChangedDetail>) => void, options?: boolean | EventListenerOptions): void;
+  removeEventListener(type: 'fnr-changed', listener: (event: CustomEvent<FnrChangedDetail>) => void, options?: boolean | EventListenerOptions): void;
+  removeEventListener(type: 'link-click', listener: (event: CustomEvent<LinkClickDetail>) => void, options?: boolean | EventListenerOptions): void;
+  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+declare namespace React {
+  namespace JSX {
+    interface IntrinsicElements {
+      'internarbeidsflate-decorator': React.HTMLAttributes<HTMLElement> &
+        React.RefAttributes<InternarbeidsflateDecoratorElement> &
+        DecoratorElementAttributes;
+    }
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'internarbeidsflate-decorator': InternarbeidsflateDecoratorElement;
+  }
+}
+```
+
+Boolean-attributter settes uten verdi (tilstede = `true`) eller utelates (= `false`).
+
+#### DecoratorProps
+
+Props settes direkte som attributter på web componenten i JSX. 
 
 ```typescript
 export interface DecoratorProps {
+  // Påkrevde props
+  appName: string; // Navn på applikasjonen
+  environment: Environment; // Miljø som skal brukes
+  urlFormat: UrlFormat; // URL-format
+  showEnheter: boolean; // Vis enhet-velger
+  showSearchArea: boolean; // Vis søkefelt
+  showHotkeys: boolean; // Vis hurtigtaster-panel
+  // Valgfrie props
   enhet?: string | undefined; // Konfigurasjon av enhet-kontekst
-  accessToken?: string | undefined; // Manuell innsending av JWT, settes som Authorization-header
-  includeCredentials?: boolean | undefined; // Sett `credentials: 'include'` på outgoing requests til contextholderen
   fnr?: string | undefined; // Konfigurasjon av fødselsnummer-kontekst
+  fnrSyncMode?: 'sync' | 'writeOnly' | 'ignore'; // Modus for fnr state management. "sync" er default. "writeOnly" setter men henter ikke. "ignore" verken henter eller setter.
+  enhetSyncMode?: 'sync' | 'writeOnly' | 'ignore'; // Samme som fnrSyncMode, men for enhet.
+  accessToken?: string | undefined; // JWT som settes som Authorization-header
+  includeCredentials?: boolean | undefined; // Sett `credentials: 'include'` på requests til contextholderen
   userKey?: string | undefined; // Midlertidig kode i stedet for fnr (se "userKey" under)
-  enableHotkeys?: boolean | undefined; // Aktivere hurtigtaster
-  fetchActiveEnhetOnMount?: boolean | undefined; // Om enhet er undefined fra container appen, og denne er satt til true, henter den sist aktiv enhet og bruker denne
-  fetchActiveUserOnMount?: boolean | undefined; // Om fnr er undefined fra container appen, og denne er satt til true for at den skal hente siste aktiv fnr
-  fnrSyncMode?: 'sync' | 'writeOnly' | 'ignore'; // Modus til fnr state management. "sync" er default. "writeOnly" gjør at endringer aldri hentes men vil settes dersom det oppdateres lokalt i appen. "ignore" verken henter fra context eller skriver til context ved oppdatert state lokalt.
-  enhetSyncMode?: 'sync' | 'writeOnly' | 'ignore'; // Samme som fnrSyncMode, men for enhet state.
-  onEnhetChanged?: (enhetId?: string | null, enhet?: Enhet) => void; // Kalles når enheten endres
+  enableHotkeys?: boolean | undefined; // Aktiver hurtigtaster
+  fetchActiveEnhetOnMount?: boolean | undefined; // Hent sist aktiv enhet ved oppstart hvis enhet ikke er satt
+  fetchActiveUserOnMount?: boolean | undefined; // Hent sist aktiv bruker ved oppstart hvis fnr ikke er satt
+  onEnhetChanged?: (enhet?: string | null, enhetObjekt?: Enhet) => void; // Kalles når enheten endres
   onFnrChanged?: (fnr?: string | null) => void; // Kalles når fnr endres
   onLinkClick?: (link: { text: string; url: string }) => void; // Kalles ved klikk på menylenker
-  appName: string; // Navn på applikasjonen
+  onBeforeRequest?: (headers: HeadersInit) => HeadersInit | undefined; // Manipuler request-headers før kall til contextholderen
   hotkeys?: Hotkey[]; // Konfigurasjon av hurtigtaster
   markup?: Markup; // Egen HTML
-  showEnheter: boolean; // Vis enheter
-  showSearchArea: boolean; // Vis søkefelt
-  showHotkeys: boolean; // Vis hurtigtaster
-  environment: Environment; // Miljø som skal brukes.
-  urlFormat: UrlFormat; // URL format
-  proxy?: string | undefined; // Overstyrer URL til contextholderen. Hvis satt, brukes denne verdien som base-URL for alle kall til modia-contextholder.
+  proxy?: string | undefined; // Overstyrer URL til contextholderen
+  websocketUrl?: string | undefined; // WebSocket URL
 }
 
 export interface Markup {
-  etterSokefelt?: string; // Gir muligheten for sende inn egen html som blir en del av dekoratøren
+  etterSokefelt?: string; // Gir muligheten for å sende inn egen HTML som blir en del av dekoratøren
 }
 
 export interface Enhet {
@@ -249,7 +293,6 @@ export interface Enhet {
   readonly navn: string;
 }
 
-// Miljø
 export type Environment =
   | 'q0'
   | 'q1'
@@ -260,7 +303,7 @@ export type Environment =
   | 'local'
   | 'mock';
 
-export type UrlFormat = 'LOCAL' | 'NAV_NO' | 'ANSATT'; // UrlFormat. Brukes til lenker i menyen & WS urlen
+export type UrlFormat = 'LOCAL' | 'NAV_NO' | 'ANSATT';
 
 export interface HotkeyObject {
   char: string;

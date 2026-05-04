@@ -11,8 +11,8 @@ interface DomainProps {
   fetchActiveEnhetOnMount?: boolean | undefined;
   fetchActiveUserOnMount?: boolean | undefined;
   onBeforeRequest?: (headers: HeadersInit) => HeadersInit | undefined;
-  onEnhetChanged: (enhet?: string | null, enhetObjekt?: Enhet) => void;
-  onFnrChanged: (fnr?: string | null) => void;
+  onEnhetChanged?: (enhet?: string | null, enhetObjekt?: Enhet) => void;
+  onFnrChanged?: (fnr?: string | null) => void;
   onLinkClick?: (link: { text: string; url: string }) => void;
   websocketUrl?: string | undefined;
 
@@ -22,7 +22,9 @@ interface DomainProps {
   fnrWriteDisabled?: boolean;
 }
 
-export interface AppProps extends DomainProps, Omit<AppState, 'open'> {}
+export interface AppProps
+  extends DomainProps,
+    Omit<AppState, 'open' | 'setIsOpen'> {}
 
 export interface DecoratorProps
   extends Omit<

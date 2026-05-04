@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true
   },
-  "include": ["src", "dev-server", "vite.config.ts", "preview.vite.config.ts"]
+  "include": ["src", "dev-server", "vite.config.ts", "preview.vite.config.ts", "webcomponent.vite.config.ts"]
 }

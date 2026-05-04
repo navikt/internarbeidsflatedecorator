@@ -12,7 +12,7 @@ import { SubstateHandlerProps } from './SubstateHandler';
 export class FnrValueManager extends ContextValueManager {
   #errorMessageManager: ErrorMessageManager;
   #propsUpdateHandler: PropsUpdateHandler;
-  #onFnrUpdated?: (fnr?: string | null) => void;
+  #onFnrUpdated: ((fnr?: string | null) => void) | undefined = undefined;
 
   #writeDisabled?: boolean;
 

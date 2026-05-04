@@ -1,4 +1,4 @@
-import type React from 'react';
+import React from 'react';
 import { type PropsWithChildren, useMemo } from 'react';
 import './index.bundled.css';
 import Banner from './components/Banner';

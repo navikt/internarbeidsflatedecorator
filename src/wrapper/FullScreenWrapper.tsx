@@ -17,8 +17,6 @@ const FullScreenWrapper = () => {
       fnr={''}
       fetchActiveEnhetOnMount
       fetchActiveUserOnMount
-      onEnhetChanged={() => {}}
-      onFnrChanged={() => {}}
     />
   );
 };

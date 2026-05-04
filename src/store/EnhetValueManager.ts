@@ -14,7 +14,9 @@ export class EnhetValueManager extends ContextValueManager {
   #errorMessageManager: ErrorMessageManager;
   #fnrValueManager: FnrValueManager;
   #propsUpdateHandler: PropsUpdateHandler;
-  #onEnhetChanged?: (newEnhet?: string | null, enhetObject?: Enhet) => void;
+  #onEnhetChanged:
+    | ((newEnhet?: string | null, enhetObject?: Enhet) => void)
+    | undefined = undefined;
 
   #writeDisabled?: boolean;
   constructor(

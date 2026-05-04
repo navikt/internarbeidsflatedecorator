@@ -41,7 +41,7 @@ jobs:
         run: bun run test
 
       - name: Build application
-        run: bun run build
+        run: bun run build && bun run build:wc
 
       - name: Upload build
         uses: actions/upload-artifact@v7

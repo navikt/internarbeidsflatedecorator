@@ -4,13 +4,15 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   build: {
+    outDir: 'dist',
+    emptyOutDir: false,
     minify: true,
-    manifest: 'asset-manifest.json',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
-      input: 'src/index.ts',
-      preserveEntrySignatures: 'exports-only',
+      input: 'src/web-component.ts',
       output: {
-        entryFileNames: 'bundle.js',
+        entryFileNames: 'internarbeidsflate-decorator.wc.js',
+        format: 'iife',
         inlineDynamicImports: true,
         assetFileNames: '[name].[ext]',
       },

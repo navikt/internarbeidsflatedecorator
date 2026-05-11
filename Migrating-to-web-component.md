@@ -41,6 +41,11 @@ Ingen import — elementet `<internarbeidsflate-decorator>` er tilgjengelig glob
 
 Props blir attributter: camelCase → kebab-case. Boolske props settes uten verdi (tilstede = `true`).
 
+> **OBS — `enable-hotkeys`:** I den gamle React-komponenten var hurtigtaster aktivert som standard (dvs. `enableHotkeys` kunne utelates). I web componenten må `enable-hotkeys` settes **eksplisitt** for å aktivere hurtigtaster — utelatt attributt tolkes som `false`. Hvis du brukte hurtigtaster tidligere, legg til attributtet:
+> ```html
+> <internarbeidsflate-decorator ... enable-hotkeys />
+> ```
+
 ---
 
 ## 3. Bytt ut callbacks med events

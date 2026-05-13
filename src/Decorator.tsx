@@ -1,6 +1,6 @@
 import React from 'react';
 import { type PropsWithChildren, useMemo } from 'react';
-import './index.bundled.css';
+import { Provider } from '@navikt/ds-react';
 import Banner from './components/Banner';
 import ErrorMessage from './components/ErrorMessageDisplay';
 import Menu from './components/Menu';
@@ -43,17 +43,22 @@ const Decorator: React.FC<PropsWithChildren<DecoratorProps>> = (props) => {
   );
 
   return (
-    <div className="dekorator">
-      <div className="dekorator" data-theme="internarbeidsflatedecorator-theme">
-        <header ref={ref} className="dr:font-arial dr:text-white">
-          <Banner />
-          <Menu />
-          <ErrorMessage />
-        </header>
+    <Provider rootElement={props.shadowRoot as unknown as HTMLElement}>
+      <div className="dekorator">
+        <div
+          className="dekorator"
+          data-theme="internarbeidsflatedecorator-theme"
+        >
+          <header ref={ref} className="dr:font-arial dr:text-white">
+            <Banner />
+            <Menu />
+            <ErrorMessage />
+          </header>
+        </div>
+        <NewUserModal />
+        <NewEnhetModal />
       </div>
-      <NewUserModal />
-      <NewEnhetModal />
-    </div>
+    </Provider>
   );
 };
 

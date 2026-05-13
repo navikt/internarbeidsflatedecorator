@@ -1,3 +1,4 @@
+import './index.bundled.css';
 import Navspa from '@navikt/navspa';
 import Decorator from './Decorator';
 import LandingPage from './LandingPage';

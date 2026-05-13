@@ -43,6 +43,9 @@ const Decorator: React.FC<PropsWithChildren<DecoratorProps>> = (props) => {
   );
 
   return (
+    /* ShadowRoot er ikke en subtype av HTMLElement i TypeScript, selv om den har alle nødvendige DOM-metoder.
+        Vi må derfor caste via unknown. Provider bruker rootElement som portal for Modal-komponenter,
+        slik at de rendres inni shadow-roten og får med seg stilene fra adoptedStyleSheets. */
     <Provider rootElement={props.shadowRoot as unknown as HTMLElement}>
       <div className="dekorator">
         <div

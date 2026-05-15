@@ -173,6 +173,7 @@ abstract class DecoratorBase extends HTMLElement {
       onEnhetChanged: this.handleEnhetChanged,
       onFnrChanged: this.handleFnrChanged,
       onLinkClick: this.handleLinkClick,
+      shadowRoot: this.shadowRoot ?? undefined,
     };
   }
 

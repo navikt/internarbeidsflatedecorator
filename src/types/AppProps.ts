@@ -15,6 +15,8 @@ interface DomainProps {
   onFnrChanged?: (fnr?: string | null) => void;
   onLinkClick?: (link: { text: string; url: string }) => void;
   websocketUrl?: string | undefined;
+  /** Brukt internt av web componenten for å scope modal portals inn i shadow root. */
+  shadowRoot?: ShadowRoot;
 
   ignoreExternalFnr?: boolean;
   ignoreExternalEnhet?: boolean;

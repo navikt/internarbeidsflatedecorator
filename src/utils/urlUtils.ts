@@ -200,7 +200,7 @@ export const buildLinks = ({
       url: modiaUrl(fnr, '', environment, urlFormat),
     },
     personvern: {
-      url: modiaUrl(null, '/personvern', environment, urlFormat),
+      url: `https://modiapersonoversikt${naisDomain(environment, urlFormat)}/personvern`,
     },
     veilarbportefoljeUrl: {
       url: `https://veilarbportefoljeflate${naisDomain(environment, urlFormat)}`,

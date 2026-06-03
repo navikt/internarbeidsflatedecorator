@@ -16,6 +16,7 @@ export const DecoratorLinks: React.FC<LinkSections> = (links) => {
         <Column linkSection={links.sykefravaer} />
       </div>
       <Row linkSection={links.andre} />
+      <Row linkSection={links.personvern} />
     </div>
   );
 };
@@ -28,6 +29,7 @@ export const FullScreenLinks: React.FC<LinkSections> = (links) => {
       <Column linkSection={links.sykefravaer} />
       <div className="dr:sm:col-span-3">
         <Row linkSection={links.andre} />
+        <Row linkSection={links.personvern} />
       </div>
     </div>
   );

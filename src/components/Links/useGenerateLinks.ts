@@ -21,6 +21,7 @@ export interface LinkSections {
   arbeidsrettet: LinkSection;
   sykefravaer: LinkSection;
   andre: LinkSection;
+  personvern: LinkSection;
 }
 
 const buildLinkWithTitle = (
@@ -129,7 +130,13 @@ const generateLinks = ({
     ],
   };
 
-  return { modia, arbeidsrettet, sykefravaer, andre };
+  const personvern: LinkSection = {
+    title: 'Personvern',
+    newPage: true,
+    links: [buildLinkWithTitle(links.personvern, 'Personvernerklæring')],
+  };
+
+  return { modia, arbeidsrettet, sykefravaer, andre, personvern };
 };
 
 export const useGenerateLinks = (): LinkSections => {

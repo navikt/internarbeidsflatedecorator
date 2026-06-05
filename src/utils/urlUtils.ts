@@ -32,6 +32,7 @@ export interface LinkObject {
   fia: Url;
   ungdomsprogrammet: Url;
   kelvin: Url;
+  personvern: Url;
 }
 
 const findEnvString = (environment: Environment) => {
@@ -197,6 +198,9 @@ export const buildLinks = ({
     },
     modiaUtenPersonUrl: {
       url: modiaUrl(fnr, '', environment, urlFormat),
+    },
+    personvern: {
+      url: `https://modiapersonoversikt${naisDomain(environment, urlFormat)}/personvern`,
     },
     veilarbportefoljeUrl: {
       url: `https://veilarbportefoljeflate${naisDomain(environment, urlFormat)}`,

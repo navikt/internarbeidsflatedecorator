@@ -15,7 +15,10 @@ export const DecoratorLinks: React.FC<LinkSections> = (links) => {
         <Column linkSection={links.arbeidsrettet} />
         <Column linkSection={links.sykefravaer} />
       </div>
-      <Row linkSection={links.andre} />
+      <div className="dr:flex dr:flex-col dr:gap-4">
+        <Row linkSection={links.andre} />
+        <Row linkSection={links.personvern} />
+      </div>
     </div>
   );
 };
@@ -26,8 +29,9 @@ export const FullScreenLinks: React.FC<LinkSections> = (links) => {
       <Column linkSection={links.modia} />
       <Column linkSection={links.arbeidsrettet} />
       <Column linkSection={links.sykefravaer} />
-      <div className="dr:sm:col-span-3">
+      <div className="dr:sm:col-span-3 dr:flex dr:flex-col dr:gap-4">
         <Row linkSection={links.andre} />
+        <Row linkSection={links.personvern} />
       </div>
     </div>
   );

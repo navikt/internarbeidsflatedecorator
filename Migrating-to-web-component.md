@@ -50,19 +50,14 @@ Props blir attributter: camelCase → kebab-case. Boolske props settes uten verd
 
 ## 3. Bytt ut callbacks med events
 
-Callbacks (`onEnhetChanged`, `onFnrChanged`, `onLinkClick`) er erstattet med DOM CustomEvents.
+Callbacks (`onEnhetChanged`, `onFnrChanged`, `onLinkClick`) er erstattet med DOM CustomEvents. Du må alltid bruke `useLayoutEffect` med `addEventListener` — React sin `onNavn`-prop-syntaks fungerer ikke for hendelser med bindestrek som `enhet-changed` (React lowercaser og lytter på `enhetchanged` i stedet).
 
 **Før:**
 ```tsx
 <Decorator onEnhetChanged={(enhet) => setEnhet(enhet)} />
 ```
 
-**Etter (React 19 — enkle tilfeller):**
-```tsx
-<internarbeidsflate-decorator onEnhetChanged={(e: CustomEvent) => setEnhet(e.detail.enhet)} />
-```
-
-**Etter (React 18, eller React 19 med `fetch-active-user-on-mount` / `fetch-active-enhet-on-mount`):**
+**Etter:**
 ```tsx
 useLayoutEffect(() => {
   const el = ref.current;
@@ -78,7 +73,7 @@ useLayoutEffect(() => {
 }, []);
 ```
 
-> Dekoratøren henter aktiv bruker/enhet fra contextholder ved oppstart. Dette kan skje raskt nok til at det første eventet går tapt med React 19 event props. Se [README.md](./README.md) for mer detaljer.
+> `useLayoutEffect` er anbefalt fremfor `useEffect` fordi dekoratøren henter aktiv bruker/enhet fra contextholder ved oppstart — dette kan skje raskt nok til at det første eventet går tapt.
 
 ---
 

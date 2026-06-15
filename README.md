@@ -48,9 +48,30 @@ import 'internarbeidsflate-decorator-v3/web-component';
 function App() {
   const [fnr, setFnr] = useState<string | undefined>();
   const [enhet, setEnhet] = useState<string | undefined>();
+  const decoratorRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const el = decoratorRef.current;
+    if (!el) return;
+    const onEnhetChanged = (e: Event) => {
+      const { enhet } = (e as CustomEvent).detail;
+      setEnhet(enhet);
+    };
+    const onFnrChanged = (e: Event) => {
+      const { fnr } = (e as CustomEvent).detail;
+      setFnr(fnr);
+    };
+    el.addEventListener('enhet-changed', onEnhetChanged);
+    el.addEventListener('fnr-changed', onFnrChanged);
+    return () => {
+      el.removeEventListener('enhet-changed', onEnhetChanged);
+      el.removeEventListener('fnr-changed', onFnrChanged);
+    };
+  }, []);
 
   return (
     <internarbeidsflate-decorator
+      ref={decoratorRef}
       app-name="Min app"
       environment="q2"
       url-format="NAV_NO"
@@ -60,50 +81,14 @@ function App() {
       show-search-area
       fetch-active-enhet-on-mount
       fetch-active-user-on-mount
-      // Om fetch-active-enhet-on-mount er true så følg heller implementasjon med addEventLister under
-      onEnhetChanged={(e: CustomEvent) => {
-        const { enhet } = e.detail;
-        setEnhet(enhet);
-      }}
-      // Om fetch-active-user-on-mount er true så følg heller implementasjon med addEventLister under
-      onFnrChanged={(e: CustomEvent) => {
-        const { fnr } = e.detail;
-        setFnr(fnr);
-      }}
     />
   );
 }
 ```
-#### React versjoner
- **Merk:** I React oppdateres attributter automatisk når state endres — ingen manuell `setAttribute` nødvendig.
- I React 19 sendes events fra custom elements som `onNavn`-props (camelCase av event-navnet).
- `enhet-changed` → `onEnhetChanged`, `fnr-changed` → `onFnrChanged`, `link-click` → `onLinkClick`.
- I React 18 og eldre, og i React 19 hvis du må fange det første eventet ved oppstart (se merknad under), bruk `useLayoutEffect` med `addEventListener`:
 
-```tsx
-const decoratorRef = useRef<HTMLElement>(null);
+**Merk:** `useLayoutEffect` med `addEventListener` er påkrevd for alle React-versjoner. React sin `onNavn`-prop-syntaks fungerer **ikke** for hendelser med bindestrek — `onEnhetChanged` lytter på `enhetchanged`, ikke `enhet-changed`. I tillegg kobles React til events etter DOM-insert, slik at det første eventet ved oppstart kan gå tapt. `useLayoutEffect` løser begge problemene.
 
-useLayoutEffect(() => {
-  const el = decoratorRef.current;
-  if (!el) return;
-  const onEnhetChanged = (e: Event) => {
-    const { enhet } = (e as CustomEvent).detail;
-  };
-  const onFnrChanged = (e: Event) => {
-    const { fnr } = (e as CustomEvent).detail;
-  };
-  el.addEventListener('enhet-changed', onEnhetChanged);
-  el.addEventListener('fnr-changed', onFnrChanged);
-  return () => {
-    el.removeEventListener('enhet-changed', onEnhetChanged);
-    el.removeEventListener('fnr-changed', onFnrChanged);
-  };
-}, []);
-
-return <internarbeidsflate-decorator ref={decoratorRef} app-name="Min app" ... />;
-```
-
-> **React 19 og events ved oppstart:** React 19 kobler til `onEnhetChanged`/`onFnrChanged` etter at elementet er satt inn i DOM-en. For events trigget av brukerinteraksjon er dette uproblematisk. Men dekoratøren kaller contextholder ved oppstart (når `fetch-active-user-on-mount` / `fetch-active-enhet-on-mount` er satt), og dette skjer asynkront like etter mount — raskt nok til at det første eventet kan gå tapt. `useLayoutEffect` kjører synkront etter DOM-commit og før noe annet planlagt arbeid, og er derfor trygt for alle tilfeller.
+I React oppdateres attributter automatisk når state endres — ingen manuell `setAttribute` nødvendig.
 
 ### Vanilla JS / andre rammeverk
 

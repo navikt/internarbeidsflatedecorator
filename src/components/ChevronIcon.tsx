@@ -8,7 +8,7 @@ export const ChevronIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
         isOpen ? 'dr:rotate-180 ' : 'dr:rotate-0'
       } dr:transform dr:transition dr:duration-150`}
     >
-      <ChevronDownIcon className="w-full h-full" />
+      <ChevronDownIcon aria-hidden className="w-full h-full" />
     </div>
   );
 };

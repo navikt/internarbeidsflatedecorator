@@ -6,7 +6,7 @@ const kontrollRekke2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
 const decimalRadix = 10;
 
 /* Et norsk fødselsnummer har to kontrollsifre (posisjon 10 og 11), beregnet med Mod-11-algoritmen
- Det er ikke nødvendig spesifikt sjekke gyldighet mot FNR, DNR, NPID, syntetiske nr osv i tillegg, da sjekksummen vil avdekke gyldighetsfeil.
+ Det er ikke nødvendig å spesifikt sjekke gyldighet mot FNR, DNR, NPID, syntetiske nr osv. i tillegg, fordi sjekksummen vil avdekke gyldighetsfeil.
 */
 function fetchControlNumbers(fnr: number[], controlNumbers: number[]) {
   let sum = 0;

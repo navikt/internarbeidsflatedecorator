@@ -123,42 +123,42 @@ decorator.setAttribute('enhet', nyEnhet);
 
 Alle props settes som HTML-attributter (camelCase → kebab-case). Boolske attributter settes uten verdi (tilstede = `true`) eller utelates (= `false`).
 
-| Attributt                     | Type                                                    | Beskrivelse                                                             |
-| ----------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `app-name`                    | string (påkrevd)                                        | Navn på applikasjonen som vises i banneret                              |
+| Attributt                     | Type                                                  | Beskrivelse                                                             |
+| ----------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------- |
+| `app-name`                    | string (påkrevd)                                      | Navn på applikasjonen som vises i banneret                              |
 | `environment`                 | `q0`\|`q1`\|`q2`\|`q3`\|`q4`\|`prod`\|`local`\|`mock` | Miljø, standard `q2`                                                    |
-| `url-format`                  | `NAV_NO`\|`ANSATT`\|`LOCAL`                             | URL-format, standard `NAV_NO`                                           |
-| `fnr`                         | string                                                  | Aktivt fødselsnummer                                                    |
-| `enhet`                       | string                                                  | Aktiv enhet                                                             |
-| `fnr-sync-mode`               | `sync`\|`writeOnly`\|`ignore`                           | Synkroniseringsmodus for fnr, standard `sync`                           |
-| `enhet-sync-mode`             | `sync`\|`writeOnly`\|`ignore`                           | Synkroniseringsmodus for enhet, standard `sync`                         |
-| `show-enheter`                | boolean                                                 | Vis enhet-velger                                                        |
-| `show-search-area`            | boolean                                                 | Vis søkefelt                                                            |
-| `show-hotkeys`                | boolean                                                 | Vis hurtigtaster-panel                                                  |
-| `enable-hotkeys`              | boolean                                                 | Aktiver hurtigtaster                                                    |
-| `fetch-active-enhet-on-mount` | boolean                                                 | Hent siste aktive enhet ved oppstart hvis `enhet` ikke er satt          |
-| `fetch-active-user-on-mount`  | boolean                                                 | Hent siste aktive bruker ved oppstart hvis `fnr` ikke er satt           |
-| `markup`                      | JSON string                                             | Ekstra HTML, f.eks. `'{"etterSokefelt":"<button>...</button>"}'`        |
-| `hotkeys`                     | JSON string                                             | Array av hurtigtaster (JSON-serialisert)                                |
-| `proxy`                       | string                                                  | Overstyrer URL til contextholderen                                      |
-| `websocket-url`               | string                                                  | WebSocket URL                                                           |
-| `access-token`                | string                                                  | JWT som settes som Authorization-header                                 |
-| `include-credentials`         | boolean                                                 | Send cookies på requests til contextholderen (`credentials: 'include'`) |
-| `user-key`                    | string                                                  | Midlertidig kode i stedet for fnr (se beskrivelse under)                |
+| `url-format`                  | `NAV_NO`\|`ANSATT`\|`LOCAL`                           | URL-format, standard `NAV_NO`                                           |
+| `fnr`                         | string                                                | Aktivt fødselsnummer                                                    |
+| `enhet`                       | string                                                | Aktiv enhet                                                             |
+| `fnr-sync-mode`               | `sync`\|`writeOnly`\|`ignore`                         | Synkroniseringsmodus for fnr, standard `sync`                           |
+| `enhet-sync-mode`             | `sync`\|`writeOnly`\|`ignore`                         | Synkroniseringsmodus for enhet, standard `sync`                         |
+| `show-enheter`                | boolean                                               | Vis enhet-velger                                                        |
+| `show-search-area`            | boolean                                               | Vis søkefelt                                                            |
+| `show-hotkeys`                | boolean                                               | Vis hurtigtaster-panel                                                  |
+| `enable-hotkeys`              | boolean                                               | Aktiver hurtigtaster                                                    |
+| `fetch-active-enhet-on-mount` | boolean                                               | Hent siste aktive enhet ved oppstart hvis `enhet` ikke er satt          |
+| `fetch-active-user-on-mount`  | boolean                                               | Hent siste aktive bruker ved oppstart hvis `fnr` ikke er satt           |
+| `markup`                      | JSON string                                           | Ekstra HTML, f.eks. `'{"etterSokefelt":"<button>...</button>"}'`        |
+| `hotkeys`                     | JSON string                                           | Array av hurtigtaster (JSON-serialisert)                                |
+| `proxy`                       | string                                                | Overstyrer URL til contextholderen                                      |
+| `websocket-url`               | string                                                | WebSocket URL                                                           |
+| `access-token`                | string                                                | JWT som settes som Authorization-header                                 |
+| `include-credentials`         | boolean                                               | Send cookies på requests til contextholderen (`credentials: 'include'`) |
+| `user-key`                    | string                                                | Midlertidig kode i stedet for fnr (se beskrivelse under)                |
 
 ### Events
 
-| Event           | `detail`-innhold                               | Beskrivelse                  |
-| --------------- | ---------------------------------------------- | ---------------------------- |
-| `enhet-changed` | `{ enhet: string\|null, enhetObjekt?: Enhet }` | Kalles når enheten endres    |
-| `fnr-changed`   | `{ fnr: string\|null }`                        | Kalles når fnr endres        |
+| Event           | `detail`-innhold                               | Beskrivelse                    |
+| --------------- | ---------------------------------------------- | ------------------------------ |
+| `enhet-changed` | `{ enhet: string\|null, enhetObjekt?: Enhet }` | Kalles når enheten endres      |
+| `fnr-changed`   | `{ fnr: string\|null }`                        | Kalles når fnr endres          |
 | `link-click`    | `{ text: string, url: string }`                | Kalles ved klikk på menylenker |
 
 ### TypeScript
 
 Dekoratøren eksponerer to TypeScript-grensesnitt:
 
-- **`DecoratorElementAttributes`** — HTML-attributter i kebab-case, til bruk i JSX-typedeklarasjoner for web componenten. 
+- **`DecoratorElementAttributes`** — HTML-attributter i kebab-case, til bruk i JSX-typedeklarasjoner for web componenten.
 - **`DecoratorProps`** — det fullstendige React-grensesnittet med riktige TypeScript-typer og tydelige påkrevde felt. Bruk dette når du importerer dekoratøren som React-komponent.
 
 #### JSX-typedeklarasjon
@@ -206,14 +206,46 @@ interface DecoratorElementAttributes {
 }
 
 interface InternarbeidsflateDecoratorElement extends HTMLElement {
-  addEventListener(type: 'enhet-changed', listener: (event: CustomEvent<EnhetChangedDetail>) => void, options?: boolean | AddEventListenerOptions): void;
-  addEventListener(type: 'fnr-changed', listener: (event: CustomEvent<FnrChangedDetail>) => void, options?: boolean | AddEventListenerOptions): void;
-  addEventListener(type: 'link-click', listener: (event: CustomEvent<LinkClickDetail>) => void, options?: boolean | AddEventListenerOptions): void;
-  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
-  removeEventListener(type: 'enhet-changed', listener: (event: CustomEvent<EnhetChangedDetail>) => void, options?: boolean | EventListenerOptions): void;
-  removeEventListener(type: 'fnr-changed', listener: (event: CustomEvent<FnrChangedDetail>) => void, options?: boolean | EventListenerOptions): void;
-  removeEventListener(type: 'link-click', listener: (event: CustomEvent<LinkClickDetail>) => void, options?: boolean | EventListenerOptions): void;
-  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  addEventListener(
+    type: 'enhet-changed',
+    listener: (event: CustomEvent<EnhetChangedDetail>) => void,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  addEventListener(
+    type: 'fnr-changed',
+    listener: (event: CustomEvent<FnrChangedDetail>) => void,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  addEventListener(
+    type: 'link-click',
+    listener: (event: CustomEvent<LinkClickDetail>) => void,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: 'enhet-changed',
+    listener: (event: CustomEvent<EnhetChangedDetail>) => void,
+    options?: boolean | EventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: 'fnr-changed',
+    listener: (event: CustomEvent<FnrChangedDetail>) => void,
+    options?: boolean | EventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: 'link-click',
+    listener: (event: CustomEvent<LinkClickDetail>) => void,
+    options?: boolean | EventListenerOptions,
+  ): void;
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions,
+  ): void;
 }
 
 declare namespace React {
@@ -237,7 +269,7 @@ Boolean-attributter settes uten verdi (tilstede = `true`) eller utelates (= `fal
 
 #### DecoratorProps
 
-Props settes direkte som attributter på web componenten i JSX. 
+Props settes direkte som attributter på web componenten i JSX.
 
 ```typescript
 export interface DecoratorProps {
@@ -326,7 +358,10 @@ Hvis en app ikke ønsker å eksponere fnr i URL-er, kan den bruke `userKey` i st
 5. Dekoratøren henter fnr for koden fra contextholderen
 
 ```html
-<internarbeidsflate-decorator user-key="<koden-fra-app-a>" ...></internarbeidsflate-decorator>
+<internarbeidsflate-decorator
+  user-key="<koden-fra-app-a>"
+  ...
+></internarbeidsflate-decorator>
 ```
 
 ---
@@ -362,7 +397,9 @@ Bruk `shadowRoot` for å nå elementer inni dekoratøren:
 // ✅ Riktig måte
 const host = document.querySelector('internarbeidsflate-decorator');
 const element = host?.shadowRoot?.querySelector('#mitt-element');
-element?.addEventListener('click', () => { /* ... */ });
+element?.addEventListener('click', () => {
+  /* ... */
+});
 ```
 
 ### Styling av innhold i `etterSokefelt`

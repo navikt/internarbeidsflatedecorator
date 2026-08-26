@@ -29,15 +29,10 @@ const buildHotkey = (
   description,
 });
 
-const generateHotkeys = ({
-  environment,
-  enhet,
-  fnr,
-  aktoerId,
-}: Props): Hotkey[] => [
+const generateHotkeys = ({ environment, fnr, aktoerId }: Props): Hotkey[] => [
   buildHotkey(
     'A',
-    veilarbpersonflateUrl({ environment, enhet, fnr }),
+    veilarbpersonflateUrl({ environment }),
     'Gå til Aktivitetsplan',
   ),
   buildHotkey('G', gosysUrl(environment, fnr), 'Gå til Gosys'),

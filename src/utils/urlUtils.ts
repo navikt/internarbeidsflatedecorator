@@ -172,7 +172,8 @@ export const arbeidssokerUrl = ({
 export const veilarbpersonflateUrl = ({
   environment,
   urlFormat,
-}: Pick<BuildLinksProps, 'environment' | 'urlFormat'>) => {
+}: Pick<BuildLinksProps, 'environment'> &
+  Partial<Pick<BuildLinksProps, 'urlFormat'>>) => {
   return `https://veilarbpersonflate${naisDomain(environment, urlFormat)}`;
 };
 

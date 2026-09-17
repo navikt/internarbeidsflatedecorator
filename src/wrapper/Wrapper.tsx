@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Button, TextField } from '@navikt/ds-react';
-import '@navikt/ds-css';
+import '@navikt/ds-css/dist/index.css';
 import { useTempValue } from './hooks/useTempValue';
 import { WebSocketWrapper } from '../api/WebSocketWrapper';
 import { ContextHolderAPI } from '../api/ContextHolderAPI';
-import Decorator from '../Decorator';
+import '../web-component';
+import type { EnhetChangedDetail, FnrChangedDetail } from '../web-component';
 
 const WS_URL = 'ws://localhost:4000/ws';
 const URL = 'http://localhost:4000/api';
 
 const ident = 'Z999999';
+
+const markup = JSON.stringify({
+  etterSokefelt:
+    '<button class="dr:font-black dr:bg-none dr:border-none">Min knapp</button>',
+});
 
 const Wrapper: React.FC = () => {
   const [enhet, tmpEnhet, setTmpEnhet, makeTheEnhetChange] = useTempValue('');
@@ -21,6 +27,37 @@ const Wrapper: React.FC = () => {
   const [wsMessages, setWsMessages] = useState<string[]>([]);
   const [propsUpdates, setPropsUpdates] = useState<string[]>([]);
   const [api] = useState(() => new ContextHolderAPI(URL));
+  const decoratorRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const el = decoratorRef.current;
+    if (!el) return;
+
+    const onEnhetChanged = (event: Event) => {
+      const { enhet } = (event as CustomEvent<EnhetChangedDetail>).detail;
+      setTmpEnhet(enhet ?? '', true);
+      setPropsUpdates((updates) => [
+        ...updates,
+        `Ny enhet fra dekoratør: ${enhet}`,
+      ]);
+    };
+
+    const onFnrChanged = (event: Event) => {
+      const { fnr } = (event as CustomEvent<FnrChangedDetail>).detail;
+      setTmpFnr(fnr ?? '', true);
+      setPropsUpdates((updates) => [
+        ...updates,
+        `Ny fnr fra dekoratør: ${fnr}`,
+      ]);
+    };
+
+    el.addEventListener('enhet-changed', onEnhetChanged);
+    el.addEventListener('fnr-changed', onFnrChanged);
+    return () => {
+      el.removeEventListener('enhet-changed', onEnhetChanged);
+      el.removeEventListener('fnr-changed', onFnrChanged);
+    };
+  }, [setTmpEnhet, setTmpFnr]);
 
   useEffect(() => {
     if (ident) {
@@ -50,36 +87,20 @@ const Wrapper: React.FC = () => {
   return (
     <>
       <div className="dr:w-full dr:top-0">
-        <Decorator
-          appName="Test app"
-          markup={{
-            etterSokefelt:
-              '<button class="dr:font-black dr:bg-none dr:border-none">Min knapp</button>',
-          }}
-          enableHotkeys
-          showEnheter={true}
-          showSearchArea={true}
-          showHotkeys={true}
-          environment={'q2'}
-          urlFormat={'LOCAL'}
+        <internarbeidsflate-decorator
+          ref={decoratorRef}
+          app-name="Test app"
+          environment="q2"
+          url-format="LOCAL"
           enhet={enhet}
           fnr={fnr}
-          fetchActiveEnhetOnMount
-          fetchActiveUserOnMount
-          onEnhetChanged={(enhet) => {
-            setTmpEnhet(enhet ?? '', true);
-            setPropsUpdates((props) => [
-              ...props,
-              `Ny enhet fra dekoratør: ${enhet}`,
-            ]);
-          }}
-          onFnrChanged={(fnr) => {
-            setTmpFnr(fnr ?? '', true);
-            setPropsUpdates((props) => [
-              ...props,
-              `Ny fnr fra dekoratør: ${fnr}`,
-            ]);
-          }}
+          markup={markup}
+          enable-hotkeys
+          show-enheter
+          show-search-area
+          show-hotkeys
+          fetch-active-enhet-on-mount
+          fetch-active-user-on-mount
         />
       </div>
       <div className="dr:fixed dr:bottom-0 dr:p-4 dr:border dr:rounded-md dr:border-gray-700 dr:w-full dr:-z-10">

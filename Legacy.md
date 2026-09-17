@@ -54,7 +54,10 @@ function App() {
 }
 ```
 
-> **Merk:** For apper med React >= 19 så må NAVSPA ha nøyaktig samme versjon av React som hovedappen.
+> **Merk om React-versjoner:** Bruk **NAVSPA >= 7.5.0**. Da spiller det ingen rolle
+> hvilken React-versjon dekoratøren er bygget med — NAVSPA isolerer React-instansene,
+> og dekoratøren rendres med sin egen React inn i en `<div>` appen din eier. Bare
+> vanlige props krysser grensen, så patch- og minor-forskjeller er uproblematiske.
 
 ---
 

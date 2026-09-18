@@ -3,10 +3,12 @@ import tseslint from 'typescript-eslint';
 import prettier from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
+  {
+    ignores: ['**/dist/**', '**/*.cjs', 'public/mockServiceWorker.js'],
+  },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
-    ignores: ['*/dist/**/*'],
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.json'],
@@ -28,7 +30,4 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   prettier,
-  {
-    ignores: ['*.cjs'],
-  },
 );

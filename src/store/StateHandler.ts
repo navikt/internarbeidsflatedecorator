@@ -23,7 +23,11 @@ export class StateHandler<T, P> {
       stateUpdate,
       this.#store.getState(),
     );
-    this.#store.setState(modifiedState, replace);
+    if (replace) {
+      this.#store.setState(modifiedState as T, true);
+    } else {
+      this.#store.setState(modifiedState);
+    }
   };
 
   onBeforeStateUpdated = (
@@ -44,6 +48,6 @@ export class StateHandler<T, P> {
         }
         return target;
       },
-    }) as UseBoundStore<Omit<StoreApi<T>, 'setState'>>;
+    });
   };
 }

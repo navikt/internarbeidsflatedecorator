@@ -3,13 +3,18 @@ import { createRoot, type Root } from 'react-dom/client';
 import Decorator from './Decorator';
 import LandingPage from './LandingPage';
 import type { AppProps, DecoratorProps } from './types/AppProps';
+import type {
+  EnhetChangedDetail,
+  FnrChangedDetail,
+  LinkClickDetail,
+} from './types/DecoratorEvents';
 import type { Enhet } from './types/Enhet';
 import type { Hotkey } from './types/Hotkey';
 import type { Markup } from './types/Markup';
 
 // Importer CSS som en streng slik at vi kan injecte den inn i shadow root.
-// Den vanlige `import './index.bundled.css'` i Decorator.tsx auto-injiseres fortsatt
-// i <head> for portaler som rendres utenfor shadow root.
+// Decorator.tsx importerer ikke CSS selv — hvert inngangspunkt eier sine stiler
+// (index.ts, wrapper/main.tsx), slik at de ikke lekker til vertsappens <head>.
 import cssText from './index.bundled.css?inline';
 
 type OnBeforeRequest = (headers: HeadersInit) => HeadersInit | undefined;
@@ -69,7 +74,7 @@ abstract class DecoratorBase extends HTMLElement {
     enhetObjekt?: Enhet,
   ) => {
     this.dispatchEvent(
-      new CustomEvent('enhet-changed', {
+      new CustomEvent<EnhetChangedDetail>('enhet-changed', {
         detail: { enhet, enhetObjekt },
         bubbles: true,
         composed: true,
@@ -79,7 +84,7 @@ abstract class DecoratorBase extends HTMLElement {
 
   private readonly handleFnrChanged = (fnr?: string | null) => {
     this.dispatchEvent(
-      new CustomEvent('fnr-changed', {
+      new CustomEvent<FnrChangedDetail>('fnr-changed', {
         detail: { fnr },
         bubbles: true,
         composed: true,
@@ -87,15 +92,9 @@ abstract class DecoratorBase extends HTMLElement {
     );
   };
 
-  private readonly handleLinkClick = ({
-    text,
-    url,
-  }: {
-    text: string;
-    url: string;
-  }) => {
+  private readonly handleLinkClick = ({ text, url }: LinkClickDetail) => {
     this.dispatchEvent(
-      new CustomEvent('link-click', {
+      new CustomEvent<LinkClickDetail>('link-click', {
         detail: { text, url },
         bubbles: true,
         composed: true,

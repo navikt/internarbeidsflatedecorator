@@ -5,7 +5,10 @@ import { useTempValue } from './hooks/useTempValue';
 import { WebSocketWrapper } from '../api/WebSocketWrapper';
 import { ContextHolderAPI } from '../api/ContextHolderAPI';
 import '../web-component';
-import type { EnhetChangedDetail, FnrChangedDetail } from '../web-component';
+import type {
+  EnhetChangedDetail,
+  FnrChangedDetail,
+} from '../types/DecoratorEvents';
 
 const WS_URL = 'ws://localhost:4000/ws';
 const URL = 'http://localhost:4000/api';
@@ -27,14 +30,14 @@ const Wrapper: React.FC = () => {
   const [wsMessages, setWsMessages] = useState<string[]>([]);
   const [propsUpdates, setPropsUpdates] = useState<string[]>([]);
   const [api] = useState(() => new ContextHolderAPI(URL));
-  const decoratorRef = useRef<HTMLElement>(null);
+  const decoratorRef = useRef<InternarbeidsflateDecoratorElement>(null);
 
   useLayoutEffect(() => {
     const el = decoratorRef.current;
     if (!el) return;
 
-    const onEnhetChanged = (event: Event) => {
-      const { enhet } = (event as CustomEvent<EnhetChangedDetail>).detail;
+    const onEnhetChanged = (event: CustomEvent<EnhetChangedDetail>) => {
+      const { enhet } = event.detail;
       setTmpEnhet(enhet ?? '', true);
       setPropsUpdates((updates) => [
         ...updates,
@@ -42,8 +45,8 @@ const Wrapper: React.FC = () => {
       ]);
     };
 
-    const onFnrChanged = (event: Event) => {
-      const { fnr } = (event as CustomEvent<FnrChangedDetail>).detail;
+    const onFnrChanged = (event: CustomEvent<FnrChangedDetail>) => {
+      const { fnr } = event.detail;
       setTmpFnr(fnr ?? '', true);
       setPropsUpdates((updates) => [
         ...updates,

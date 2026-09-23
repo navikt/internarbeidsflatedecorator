@@ -156,10 +156,8 @@ Alle props settes som HTML-attributter (camelCase → kebab-case). Boolske attri
 
 ### TypeScript
 
-Dekoratøren eksponerer to TypeScript-grensesnitt:
-
-- **`DecoratorElementAttributes`** — HTML-attributter i kebab-case, til bruk i JSX-typedeklarasjoner for web componenten.
 - **`DecoratorProps`** — det fullstendige React-grensesnittet med riktige TypeScript-typer og tydelige påkrevde felt. Bruk dette når du importerer dekoratøren som React-komponent.
+- Bruker du web componenten, deklarerer du elementene selv — se [JSX-typedeklarasjon](#jsx-typedeklarasjon) under.
 
 #### JSX-typedeklarasjon
 
@@ -180,28 +178,40 @@ interface LinkClickDetail {
   url: string;
 }
 
+interface DecoratorHotkey {
+  key: {
+    char: string;
+    altKey?: boolean;
+    ctrlKey?: boolean;
+    metaKey?: boolean;
+    shiftKey?: boolean;
+  };
+  description: string;
+  forceOverride?: boolean;
+}
+
 interface DecoratorElementAttributes {
   // Påkrevde attributter
   'app-name': string;
   environment: string;
   'url-format': string;
-  'show-enheter': string;
-  'show-search-area': string;
-  'show-hotkeys': string;
+  'show-enheter': boolean | string;
+  'show-search-area': boolean | string;
+  'show-hotkeys': boolean | string;
   // Valgfrie attributter
   fnr?: string;
   enhet?: string;
   'fnr-sync-mode'?: string;
   'enhet-sync-mode'?: string;
-  'enable-hotkeys'?: string;
-  'fetch-active-enhet-on-mount'?: string;
-  'fetch-active-user-on-mount'?: string;
+  'enable-hotkeys'?: boolean | string;
+  'fetch-active-enhet-on-mount'?: boolean | string;
+  'fetch-active-user-on-mount'?: boolean | string;
+  'include-credentials'?: boolean | string;
   markup?: string;
-  hotkeys?: string;
+  hotkeys?: DecoratorHotkey[] | string;
   proxy?: string;
   'websocket-url'?: string;
   'access-token'?: string;
-  'include-credentials'?: string;
   'user-key'?: string;
 }
 
@@ -265,7 +275,7 @@ declare global {
 }
 ```
 
-Boolean-attributter settes uten verdi (tilstede = `true`) eller utelates (= `false`).
+Boolske attributter skrives uten verdi i JSX (tilstede = `true`). De valgfrie kan utelates (= `false`). `show-enheter`, `show-search-area` og `show-hotkeys` er påkrevde — vil du skru dem av, sett dem eksplisitt med `{false}`.
 
 #### DecoratorProps
 

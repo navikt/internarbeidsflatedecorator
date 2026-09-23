@@ -1,22 +1,19 @@
 import React from 'react';
-import '@navikt/ds-css';
-import LandingPage from '../LandingPage';
+import '../web-component';
 
 const FullScreenWrapper = () => {
-  // En minimal Decorator som viser en fullskjermvisning av applikasjonen
+  // En minimal dekoratør som viser en fullskjermvisning av applikasjonen, rendes som web component
   return (
-    <LandingPage
-      appName="Test app"
-      enableHotkeys
-      showEnheter={true}
-      showSearchArea={true}
-      showHotkeys={true}
-      environment={'q2'}
-      urlFormat={'LOCAL'}
-      enhet={''}
-      fnr={''}
-      fetchActiveEnhetOnMount
-      fetchActiveUserOnMount
+    <internarbeidsflate-decorator-fullscreen
+      app-name="Test app"
+      environment="q2"
+      url-format="LOCAL"
+      enable-hotkeys
+      show-enheter
+      show-search-area
+      show-hotkeys
+      fetch-active-enhet-on-mount
+      fetch-active-user-on-mount
     />
   );
 };

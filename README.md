@@ -212,7 +212,6 @@ interface DecoratorElementAttributes {
   proxy?: string;
   'websocket-url'?: string;
   'access-token'?: string;
-  'include-credentials'?: string;
   'user-key'?: string;
 }
 

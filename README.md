@@ -34,12 +34,6 @@ Legg til følgende script-tag i `index.html` **før** appen din starter:
 ></script>
 ```
 
-### Eller installer som npm-pakke
-
-```js
-import 'internarbeidsflate-decorator-v3/web-component';
-```
-
 ### React
 
 ```tsx

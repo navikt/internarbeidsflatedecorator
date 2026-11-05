@@ -127,6 +127,7 @@ const generateLinks = ({
       buildLinkWithTitle(links.fia, 'Fia'),
       buildLinkWithTitle(links.ungdomsprogrammet, 'Ungdomsprogrammet'),
       buildLinkWithTitle(links.kelvin, 'Kelvin'),
+      buildLinkWithTitle(links.k9, 'Aktivitetspenger', '/avp'),
     ],
   };
 

@@ -4,22 +4,33 @@ registries:
   nav-ghpr:
     type: npm-registry
     url: https://npm.pkg.github.com
+    scope: '@navikt'
     token: ${{ secrets.READER_TOKEN }}
 
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
-    open-pull-requests-limit: 20
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Europe/Oslo'
+    open-pull-requests-limit: 5
     registries: '*'
     groups:
-      navikt-aksel:
+      npm:
         patterns:
-          - '@navikt/ds-*'
-          - '@navikt/aksel-icons'
+          - '*'
 
   - package-ecosystem: github-actions
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+      day: 'monday'
+      time: '06:00'
+      timezone: 'Europe/Oslo'
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - '*'

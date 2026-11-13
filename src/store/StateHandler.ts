@@ -44,6 +44,6 @@ export class StateHandler<T, P> {
         }
         return target;
       },
-    }) as UseBoundStore<Omit<StoreApi<T>, 'setState'>>;
+    });
   };
 }
